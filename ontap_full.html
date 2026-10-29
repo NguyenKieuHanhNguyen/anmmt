@@ -1,0 +1,2934 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATMMT Master Hub - Ôn Tập Trắc Nghiệm An Toàn Mạng Máy Tính</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1120;
+      --card-bg: #152033;
+      --card-border: #233554;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --primary-hover: #0284c7;
+      --accent: #818cf8;
+      --success-bg: rgba(34, 197, 94, 0.15);
+      --success-border: #22c55e;
+      --success-text: #4ade80;
+      --danger-bg: rgba(239, 68, 68, 0.15);
+      --danger-border: #ef4444;
+      --danger-text: #f87171;
+      --tip-bg: rgba(245, 158, 11, 0.12);
+      --tip-border: #f59e0b;
+      --tip-text: #fbbf24;
+    }
+
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --primary: #0284c7;
+      --primary-hover: #0369a1;
+      --accent: #6366f1;
+      --success-bg: #dcfce7;
+      --success-border: #16a34a;
+      --success-text: #15803d;
+      --danger-bg: #fee2e2;
+      --danger-border: #dc2626;
+      --danger-text: #b91c1c;
+      --tip-bg: #fef3c7;
+      --tip-border: #d97706;
+      --tip-text: #b45309;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+      padding-bottom: 80px;
+    }
+
+    header {
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--card-border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+    }
+
+    .header-container {
+      max-width: 1250px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .title-box h1 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .title-box p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      padding: 0.55rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+    .btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff !important;
+      border: none;
+    }
+    .btn-primary:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+    }
+
+    .main-container {
+      max-width: 1250px;
+      margin: 1.5rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 290px 1fr;
+      gap: 1.75rem;
+    }
+
+    @media (max-width: 900px) {
+      .main-container { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 90px;
+      height: calc(100vh - 110px);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      overflow-y: auto;
+    }
+
+    .panel {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .panel h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.85rem;
+    }
+
+    .chapter-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .chapter-btn {
+      width: 100%;
+      text-align: left;
+      padding: 0.6rem 0.75rem;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text);
+      font-size: 0.875rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s;
+    }
+    .chapter-btn:hover {
+      background: rgba(56, 189, 248, 0.08);
+      color: var(--primary);
+    }
+    .chapter-btn.active {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--primary);
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .chapter-btn .badge {
+      font-size: 0.75rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 10px;
+      background: var(--card-border);
+      color: var(--text-muted);
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      text-align: center;
+    }
+    .stat-item {
+      padding: 0.75rem;
+      background: rgba(255,255,255,0.02);
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+    }
+    .stat-val {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .stat-lbl {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .content-area {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .filter-bar {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .search-input {
+      flex: 1;
+      min-width: 220px;
+      padding: 0.6rem 0.9rem;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.875rem;
+      outline: none;
+    }
+    .search-input:focus { border-color: var(--primary); }
+
+    .q-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.2s;
+    }
+    .q-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .q-meta {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .q-tag {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .q-bookmark-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 0.2rem;
+    }
+    .q-bookmark-btn.bookmarked {
+      color: #eab308;
+    }
+
+    .q-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .opt-btn {
+      width: 100%;
+      text-align: left;
+      padding: 0.85rem 1.1rem;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+      background: rgba(255,255,255,0.02);
+      color: var(--text);
+      font-size: 0.925rem;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      transition: all 0.2s;
+    }
+    .opt-btn:hover:not(:disabled) {
+      background: rgba(56, 189, 248, 0.08);
+      border-color: var(--primary);
+    }
+    .opt-key {
+      font-weight: 700;
+      color: var(--text-muted);
+      min-width: 1.4rem;
+    }
+
+    .opt-btn.correct {
+      background: var(--success-bg) !important;
+      border-color: var(--success-border) !important;
+      color: var(--success-text) !important;
+      font-weight: 600;
+    }
+    .opt-btn.wrong {
+      background: var(--danger-bg) !important;
+      border-color: var(--danger-border) !important;
+      color: var(--danger-text) !important;
+    }
+
+    .explain-box {
+      margin-top: 1.25rem;
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border-left: 4px solid var(--primary);
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    .explain-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+    .explain-text {
+      font-size: 0.9rem;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+    .tip-box {
+      padding: 0.65rem 0.9rem;
+      border-radius: 6px;
+      background: var(--tip-bg);
+      border: 1px dashed var(--tip-border);
+      color: var(--tip-text);
+      font-size: 0.85rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      max-width: 500px;
+      width: 100%;
+      padding: 2rem;
+      text-align: center;
+    }
+    .modal-card h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.75rem;
+      color: var(--primary);
+    }
+    .modal-actions {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    .exam-banner {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(129, 140, 248, 0.15));
+      border: 1px solid var(--primary);
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .timer-badge {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ef4444;
+      background: rgba(239, 68, 68, 0.1);
+      padding: 0.35rem 0.75rem;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <div class="title-box">
+        <h1>ATMMT Master Hub</h1>
+        <p>Luyện trắc nghiệm toàn diện An toàn mạng máy tính (Chương 1 - 6 &amp; Tổng hợp)</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-primary" onclick="openTestModal()">⚡ Thi Thử Ngẫu Nhiên 50 Câu</button>
+        <button class="btn" onclick="toggleTheme()" id="themeBtn">🌙 Giao diện</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <!-- Sidebar Menu Phân Loại -->
+    <aside class="sidebar">
+      <div class="panel">
+        <h3>Mục lục ôn tập</h3>
+        <ul class="chapter-list">
+          <li><button class="chapter-btn active" onclick="setFilter('all', this)"><span>Tất cả câu hỏi</span> <span class="badge" id="b-all">0</span></button></li>
+          <li><button class="chapter-btn" onclick="setFilter('c1', this)"><span>Chương 1: Tổng quan</span> <span class="badge" id="b-c1">0</span></button></li>
+          <li><button class="chapter-btn" onclick="setFilter('c2', this)"><span>Chương 2: Mã độc</span> <span class="badge" id="b-c2">0</span></button></li>
+          <li><button class="chapter-btn" onclick="setFilter('c3', this)"><span>Chương 3: Tường lửa</span> <span class="badge" id="b-c3">0</span></button></li>
+          <li><button class="chapter-btn" onclick="setFilter('c4', this)"><span>Chương 4: IDS / IPS</span> <span class="badge" id="b-c4">0</span></button></li>
+          <li><button class="chapter-btn" onclick="setFilter('c5', this)"><span>Chương 5: WLAN Security</span> <span class="badge" id="b-c5">0</span></button></li>
+          <li><button class="chapter-btn" onclick="setFilter('c6', this)"><span>Chương 6: Chuẩn ATTT</span> <span class="badge" id="b-c6">0</span></button></li>
+          <li><button class="chapter-btn" onclick="setFilter('review', this)"><span>Tổng hợp Đúng / Sai</span> <span class="badge" id="b-review">0</span></button></li>
+          <hr style="border:0; border-top:1px solid var(--card-border); margin:0.5rem 0;">
+          <li><button class="chapter-btn" onclick="setFilter('wrong', this)"><span>❌ Câu làm sai</span> <span class="badge" id="b-wrong">0</span></button></li>
+          <li><button class="chapter-btn" onclick="setFilter('bookmark', this)"><span>⭐ Câu đã lưu</span> <span class="badge" id="b-bookmark">0</span></button></li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <h3>Tiến độ của bạn</h3>
+        <div class="stat-grid">
+          <div class="stat-item">
+            <div class="stat-val" id="stat-done">0</div>
+            <div class="stat-lbl">Đã làm</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val" id="stat-accuracy">0%</div>
+            <div class="stat-lbl">Độ chính xác</div>
+          </div>
+        </div>
+        <button class="btn" style="width: 100%; margin-top: 1rem; justify-content: center;" onclick="resetProgress()">Làm lại từ đầu</button>
+      </div>
+    </aside>
+
+    <!-- Khu vực hiển thị câu hỏi -->
+    <main class="content-area">
+      <!-- Banner Chế độ thi thử ngẫu nhiên -->
+      <div class="exam-banner" id="examBanner">
+        <div>
+          <h3 style="color:var(--primary); font-size:1.1rem; margin-bottom:0.25rem;">Bài thi thử ngẫu nhiên 50 câu</h3>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Đề thi tổng hợp lấy ngẫu nhiên từ kho dữ liệu.</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:1rem;">
+          <div class="timer-badge" id="timerBox">45:00</div>
+          <button class="btn btn-primary" onclick="finishExam()">Nộp bài</button>
+        </div>
+      </div>
+
+      <!-- Thanh công cụ tìm kiếm và lọc -->
+      <div class="filter-bar">
+        <input type="text" class="search-input" placeholder="🔍 Tìm kiếm từ khóa câu hỏi, công nghệ, giao thức..." oninput="handleSearch(this.value)">
+        <div style="font-size: 0.875rem; color: var(--text-muted);">
+          Đang hiển thị: <strong id="question-count" style="color: var(--primary);">0</strong> câu hỏi
+        </div>
+      </div>
+
+      <!-- Danh sách câu hỏi -->
+      <div id="questions-list" style="display: flex; flex-direction: column; gap: 1.25rem;"></div>
+    </main>
+  </div>
+
+  <!-- Modal cấu hình thi thử 50 câu -->
+  <div class="modal-overlay" id="examModal">
+    <div class="modal-card">
+      <h2>Sẵn sàng làm bài thi thử?</h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.25rem;">
+        Hệ thống sẽ lấy ngẫu nhiên <strong>50 câu hỏi</strong> từ toàn bộ các chương. Thời gian làm bài là <strong>45 phút</strong>.
+      </p>
+      <div class="modal-actions">
+        <button class="btn" onclick="closeTestModal()">Hủy bỏ</button>
+        <button class="btn btn-primary" onclick="startRandom50Exam()">Bắt đầu thi ngay</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT ĐÃ FIX LỖI CHUỖI VÀ TỰ ĐỘNG CHẠY KHI TẢI TRANG -->
+  <script>
+    const database = [
+      // CHƯƠNG 1
+      {
+        id: "c1_1", chapter: "c1", chapterName: "Chương 1",
+        q: "Dữ liệu đang được truyền trên mạng được gọi là trạng thái gì?",
+        options: ["Data at Rest", "Data in Transit", "Storage state", "Idle state"],
+        answer: 1,
+        explain: "Dữ liệu có hai trạng thái chính: đang truyền trên mạng (Data in Transit) và lưu trữ (Data at Rest).",
+        tip: "Mẹo nhớ: Transit = Đang di chuyển trên mạng; Rest = Nằm yên lưu trữ."
+      },
+      {
+        id: "c1_2", chapter: "c1", chapterName: "Chương 1",
+        q: "Yêu cầu nào đảm bảo dữ liệu không bị thay đổi trái phép?",
+        options: ["Confidentiality", "Integrity", "Availability", "Non-repudiation"],
+        answer: 1,
+        explain: "Tính toàn vẹn (Integrity) bảo vệ dữ liệu khỏi sửa đổi hoặc phá hoại trái phép.",
+        tip: "Mẹo nhớ: Integrity = Toàn vẹn (Không bị sửa đổi)."
+      },
+      {
+        id: "c1_3", chapter: "c1", chapterName: "Chương 1",
+        q: "Yêu cầu nào đảm bảo dữ liệu luôn sẵn sàng khi cần?",
+        options: ["Confidentiality", "Integrity", "Availability", "Non-repudiation"],
+        answer: 2,
+        explain: "Tính sẵn sàng (Availability) đảm bảo người dùng hợp pháp có thể truy cập dữ liệu khi cần.",
+        tip: "Mẹo nhớ: Availability = Sẵn sàng phục vụ bất cứ lúc nào."
+      },
+      {
+        id: "c1_4", chapter: "c1", chapterName: "Chương 1",
+        q: "Giải pháp nào thường dùng để đảm bảo tính bảo mật (Confidentiality) cho dữ liệu trong trạng thái lưu trữ?",
+        options: ["Digital Signature", "QoS", "Disk / File Encryption", "Audit Log"],
+        answer: 2,
+        explain: "Mã hóa đĩa hoặc tập tin (Disk/File Encryption) là cách chính để giữ bí mật dữ liệu khi lưu trữ.",
+        tip: "Mẹo nhớ: Dữ liệu lưu trữ (at Rest) = Mã hóa đĩa / tập tin."
+      },
+      {
+        id: "c1_5", chapter: "c1", chapterName: "Chương 1",
+        q: "Kẻ tấn công dùng kỹ năng xã hội để lừa nạn nhân tiết lộ mật khẩu gọi là?",
+        options: ["Guessing", "Dictionary attack", "Password sniffing", "Social engineering"],
+        answer: 3,
+        explain: "Social engineering lợi dụng tâm lý, sự tin tưởng hoặc mạo danh để lấy cắp thông tin.",
+        tip: "Mẹo nhớ: Đánh vào tâm lý con người = Social engineering."
+      },
+      {
+        id: "c1_6", chapter: "c1", chapterName: "Chương 1",
+        q: "Phương pháp tấn công nào cho phép kẻ tấn công đứng giữa hai người dùng, chặn và sửa đổi dữ liệu?",
+        options: ["Man-in-the-middle attack", "SYN flooding", "ARP spoofing", "Buffer overflow"],
+        answer: 0,
+        explain: "Kẻ tấn công chèn vào giữa (MITM), có thể nghe lén và thay đổi thông tin trao đổi.",
+        tip: "Mẹo nhớ: Đứng giữa hai người = Man-in-the-middle (MITM)."
+      },
+      {
+        id: "c1_7", chapter: "c1", chapterName: "Chương 1",
+        q: "Lỗ hổng ghi dữ liệu vượt quá kích thước bộ đệm được gọi là?",
+        options: ["Identity Spoofing", "Buffer-Overflow Exploitation", "Repudiation", "Cryptanalysis"],
+        answer: 1,
+        explain: "Buffer overflow xảy ra khi chương trình ghi nhiều dữ liệu hơn bộ đệm có thể chứa, dẫn đến ghi đè vùng nhớ.",
+        tip: "Mẹo nhớ: Vượt bộ đệm = Buffer Overflow."
+      },
+      {
+        id: "c1_8", chapter: "c1", chapterName: "Chương 1",
+        q: "Mục tiêu chính của tấn công từ chối dịch vụ (DoS/DDoS) là gì?",
+        options: ["Đánh cắp dữ liệu", "Ngăn người dùng hợp pháp sử dụng dịch vụ", "Giả mạo danh tính", "Cài mã độc"],
+        answer: 1,
+        explain: "DoS/DDoS làm hệ thống quá tải, không thể đáp ứng yêu cầu hợp lệ của người dùng.",
+        tip: "Mẹo nhớ: DoS = Từ chối phục vụ (Làm sập hệ thống)."
+      },
+      {
+        id: "c1_9", chapter: "c1", chapterName: "Chương 1",
+        q: "Loại mã độc nào là chương trình độc lập, có thể tự sao chép và tự thực thi mà không cần vật chủ?",
+        options: ["Virus", "Worm", "Trojan horse", "Logic bomb"],
+        answer: 1,
+        explain: "Worm không cần gắn vào tệp khác, có thể tự lây lan độc lập qua mạng.",
+        tip: "Mẹo nhớ: Virus cần vật chủ; Worm độc lập tự lây qua mạng."
+      },
+      {
+        id: "c1_10", chapter: "c1", chapterName: "Chương 1",
+        q: "Mã độc nào thường ngụy trang thành phần mềm hữu ích nhưng tạo cửa hậu hoặc đánh cắp thông tin?",
+        options: ["Virus", "Worm", "Trojan horse", "Spyware"],
+        answer: 2,
+        explain: "Trojan giả dạng ứng dụng vô hại, khi chạy sẽ mở backdoor hoặc phá hoại.",
+        tip: "Mẹo nhớ: Ngụy trang phần mềm hữu ích = Ngựa Trojan."
+      },
+      {
+        id: "c1_11", chapter: "c1", chapterName: "Chương 1",
+        q: "Những kẻ tấn công chỉ sử dụng công cụ có sẵn, không hiểu rõ nguyên lý được gọi là?",
+        options: ["Black-hat hackers", "Script kiddies", "Cyber spies", "Vicious employees"],
+        answer: 1,
+        explain: "Script kiddies thiếu kiến thức chuyên sâu, chỉ bấm chạy script hoặc tool có sẵn.",
+        tip: "Mẹo nhớ: Dùng tool có sẵn = Script kiddies."
+      },
+      {
+        id: "c1_12", chapter: "c1", chapterName: "Chương 1",
+        q: "Thành phần nào trong mô hình bảo mật cơ bản có chức năng giám sát đăng nhập, hành vi và phát hiện xâm nhập?",
+        options: ["Cryptosystem", "Firewall", "Anti-Malware", "Intrusion Detection System (IDS)"],
+        answer: 3,
+        explain: "IDS phân tích log và hoạt động mạng để phát hiện dấu hiệu xâm nhập trái phép.",
+        tip: "Mẹo nhớ: Giám sát, phát hiện bất thường = IDS."
+      },
+      {
+        id: "c1_13", chapter: "c1", chapterName: "Chương 1",
+        q: "Biện pháp hiệu quả nhất chống nghe lén (eavesdropping) trên mạng công cộng?",
+        options: ["Đóng các cổng không cần thiết", "Mã hóa dữ liệu trước khi truyền", "Sử dụng mật khẩu mạnh", "Cài đặt tường lửa"],
+        answer: 1,
+        explain: "Mã hóa làm cho dữ liệu bị bắt trộm trên đường truyền trở nên vô dụng nếu không có khóa.",
+        tip: "Mẹo nhớ: Chống nghe lén = Mã hóa dữ liệu."
+      },
+      {
+        id: "c1_14", chapter: "c1", chapterName: "Chương 1",
+        q: "Kỹ thuật tấn công thay đổi địa chỉ MAC đích của một IP (gửi gói ARP giả) gọi là?",
+        options: ["SYN flooding", "TCP hijacking", "ARP spoofing", "Message replay"],
+        answer: 2,
+        explain: "ARP spoofing đầu độc bảng ARP, liên kết địa chỉ IP với địa chỉ MAC của kẻ tấn công.",
+        tip: "Mẹo nhớ: Giả mạo gói tin MAC/IP = ARP Spoofing."
+      },
+      {
+        id: "c1_15", chapter: "c1", chapterName: "Chương 1",
+        q: "Yêu cầu an ninh nào đảm bảo một bên không thể phủ nhận hành vi đã gửi hoặc nhận dữ liệu?",
+        options: ["Confidentiality", "Integrity", "Availability", "Non-repudiation"],
+        answer: 3,
+        explain: "Non-repudiation (Chống chối bỏ) thường được đảm bảo bằng chữ ký số.",
+        tip: "Mẹo nhớ: Không thể chối bỏ hành vi = Non-repudiation."
+      },
+      {
+        id: "c1_16", chapter: "c1", chapterName: "Chương 1",
+        q: "Trong tấn công Smurf (một dạng DoS), kẻ tấn công giả mạo địa chỉ IP nguồn thành IP của nạn nhân. Đây là kỹ thuật gì?",
+        options: ["ARP spoofing", "IP Spoofing", "TCP hijacking", "Password sniffing"],
+        answer: 1,
+        explain: "IP Spoofing sửa địa chỉ IP nguồn trong gói tin để nạn nhân hứng chịu luồng trả lời.",
+        tip: "Mẹo nhớ: Giả mạo địa chỉ IP nguồn = IP Spoofing."
+      },
+      {
+        id: "c1_17", chapter: "c1", chapterName: "Chương 1",
+        q: "Quy tắc bảo vệ mật khẩu nào giúp chống lại tấn công Dictionary hiệu quả nhất?",
+        options: ["Không tiết lộ mật khẩu qua điện thoại", "Sử dụng mật khẩu dài, kết hợp chữ hoa/thường/số/ký tự đặc biệt", "Thay đổi mật khẩu hàng ngày", "Lưu mật khẩu trong trình duyệt"],
+        answer: 1,
+        explain: "Mật khẩu phức tạp, không có trong từ điển ngôn ngữ sẽ làm thất bại tấn công dò từ điển.",
+        tip: "Mẹo nhớ: Mật khẩu phức tạp vô hiệu hóa tấn công Dictionary."
+      },
+      {
+        id: "c1_19", chapter: "c1", chapterName: "Chương 1",
+        q: "Giao thức nào thường bị tấn công Password Sniffing vì truyền mật khẩu dưới dạng văn bản rõ (plaintext)?",
+        options: ["HTTPS", "SSH", "Telnet", "Kerberos"],
+        answer: 2,
+        explain: "Telnet, FTP truyền thông tin xác thực dạng văn bản rõ (plaintext) không mã hóa.",
+        tip: "Mẹo nhớ: Telnet, FTP truyền plaintext không an toàn."
+      },
+      {
+        id: "c1_20", chapter: "c1", chapterName: "Chương 1",
+        q: "Backdoor thường được mã độc sử dụng để làm gì sau khi xâm nhập?",
+        options: ["Mã hóa dữ liệu tống tiền", "Mở sẵn một cổng kết nối cho kẻ tấn công", "Lây lan qua email", "Thay đổi trang chủ trình duyệt"],
+        answer: 1,
+        explain: "Backdoor mở cổng bí mật, giúp kẻ tấn công quay lại điều khiển hệ thống bất cứ lúc nào.",
+        tip: "Mẹo nhớ: Backdoor = Cửa sau ngầm."
+      },
+      {
+        id: "c1_21", chapter: "c1", chapterName: "Chương 1",
+        q: "Thành phần nào trong mô hình bảo mật cơ bản kiểm tra các gói tin đi vào và đi ra khỏi mạng?",
+        options: ["Cryptosystem", "Firewall", "IDS", "AMS"],
+        answer: 1,
+        explain: "Tường lửa (Firewall) đóng vai trò rào chắn lọc lưu lượng ra/vào mạng theo quy tắc.",
+        tip: "Mẹo nhớ: Lọc gói ra vào biên mạng = Firewall."
+      },
+      {
+        id: "c1_22", chapter: "c1", chapterName: "Chương 1",
+        q: "Tấn công SYN flooding nhằm vào cơ chế nào của TCP?",
+        options: ["Làm đầy hàng đợi kết nối bán mở (half-open)", "Giả mạo số thứ tự", "Đánh cắp cookie", "Tấn công tràn bộ đệm"],
+        answer: 0,
+        explain: "Gửi hàng loạt gói SYN mà không hoàn tất bắt tay làm đầy hàng đợi kết nối bán mở (half-open).",
+        tip: "Mẹo nhớ: SYN Flooding = Làm tràn hàng đợi kết nối bán mở TCP."
+      },
+      {
+        id: "c1_23", chapter: "c1", chapterName: "Chương 1",
+        q: "Phân tích mật mã (cryptanalysis) là gì?",
+        options: ["Mã hóa dữ liệu", "Tìm thông tin từ dữ liệu đã mã hóa mà không cần khóa", "Quản lý khóa", "Tạo chữ ký số"],
+        answer: 1,
+        explain: "Cryptanalysis (Thám mã) sử dụng toán học và thống kê để phá mã mà không cần biết trước khóa.",
+        tip: "Mẹo nhớ: Thám mã = Giải mã không cần khóa."
+      },
+      {
+        id: "c1_24", chapter: "c1", chapterName: "Chương 1",
+        q: "Loại gián điệp mạng (cyber spies) thường được thuê để làm gì?",
+        options: ["Phá hoại cơ sở hạ tầng", "Tấn công DDoS quy mô lớn", "Đánh chặn và giải mã thông tin liên lạc", "Viết virus"],
+        answer: 2,
+        explain: "Cyber spies hoạt động nhằm phục vụ mục đích tình báo quân sự, kinh tế, đánh cắp bí mật.",
+        tip: "Mẹo nhớ: Gián điệp = Thu thập và giải mã thông tin mật."
+      },
+      {
+        id: "c1_25", chapter: "c1", chapterName: "Chương 1",
+        q: "Nhân viên cố tình vi phạm an ninh để trả thù hoặc bán bí mật công ty được xếp vào loại nào?",
+        options: ["Black-hat hackers", "Script kiddies", "Vicious employees", "Cyber terrorists"],
+        answer: 2,
+        explain: "Vicious employees là mối đe dọa nội bộ, có quyền truy cập hợp lệ nhưng có ác ý.",
+        tip: "Mẹo nhớ: Nhân viên nội bộ phá hoại = Vicious employees."
+      },
+      {
+        id: "c1_26", chapter: "c1", chapterName: "Chương 1",
+        q: "Logic bomb được kích hoạt dựa trên điều gì?",
+        options: ["Một hành động của người dùng", "Một điều kiện logic hoặc thời gian cụ thể", "Tự sao chép", "Kết nối mạng"],
+        answer: 1,
+        explain: "Logic bomb nằm ẩn, chỉ nổ khi có điều kiện định trước (như ngày giờ, xóa tài khoản).",
+        tip: "Mẹo nhớ: Bom logic = Nổ khi thỏa mãn điều kiện logic / thời gian."
+      },
+      {
+        id: "c1_27", chapter: "c1", chapterName: "Chương 1",
+        q: "Công cụ nào sau đây được dùng để bắt gói tin (packet sniffer)?",
+        options: ["Cain & Abel", "Wireshark", "Nmap", "Metasploit"],
+        answer: 1,
+        explain: "Wireshark là phần mềm bắt và phân tích gói tin mạng chuyên sâu phổ biến nhất.",
+        tip: "Mẹo nhớ: Bắt gói tin (Sniffer) = Wireshark."
+      },
+      {
+        id: "c1_28", chapter: "c1", chapterName: "Chương 1",
+        q: "Lệnh nào trong Windows hiển thị danh sách các kết nối mạng hoạt động, các cổng đang lắng nghe và kèm theo ID tiến trình (PID)?",
+        options: ["ping", "ipconfig", "tracert", "netstat -ano"],
+        answer: 3,
+        explain: "netstat -ano hiển thị số cổng, trạng thái kết nối và cột Process ID (PID).",
+        tip: "Mẹo nhớ: netstat -ano hiển thị PID của tiến trình."
+      },
+      {
+        id: "c1_29", chapter: "c1", chapterName: "Chương 1",
+        q: "Mục đích của quét cổng (port scan) trong kiểm tra bảo mật là?",
+        options: ["Tìm mật khẩu", "Phát hiện các cổng đang mở và dịch vụ chạy trên đó", "Làm sập hệ thống", "Mã hóa dữ liệu"],
+        answer: 1,
+        explain: "Port scan giúp xác định các cổng đang mở để đóng các dịch vụ không cần thiết.",
+        tip: "Mẹo nhớ: Quét cổng = Biết cổng nào đang mở và dịch vụ gì đang chạy."
+      },
+      {
+        id: "c1_30", chapter: "c1", chapterName: "Chương 1",
+        q: "Hacker mũ đen (black-hat) là người?",
+        options: ["Sử dụng kỹ năng để bảo vệ hệ thống", "Xâm nhập trái phép với mục đích cá nhân hoặc phá hoại", "Chỉ dùng công cụ có sẵn", "Làm việc cho chính phủ"],
+        answer: 1,
+        explain: "Mũ đen là tin tặc bất hợp pháp, vi phạm pháp luật để vụ lợi hoặc phá hoại.",
+        tip: "Mẹo nhớ: Mũ đen = Xâm nhập trái phép phá hoại."
+      },
+      {
+        id: "c1_31", chapter: "c1", chapterName: "Chương 1",
+        q: "Kỹ thuật tấn công replay message khai thác điều gì?",
+        options: ["Lỗ hổng tràn bộ đệm", "Bắt và phát lại một chứng thực (token) đã được cấp", "Giả mạo địa chỉ MAC", "Nghe lén mật khẩu"],
+        answer: 1,
+        explain: "Bắt gói tin xác thực hợp lệ và phát lại sau đó để mạo danh phiên đăng nhập.",
+        tip: "Mẹo nhớ: Replay = Bắt và phát lại gói xác thực."
+      },
+      {
+        id: "c1_32", chapter: "c1", chapterName: "Chương 1",
+        q: "TCP hijacking là gì?",
+        options: ["Chiếm quyền điều khiển một kết nối TCP đang hoạt động", "Làm tràn bộ đệm TCP", "Tấn công từ chối dịch vụ", "Giả mạo ARP"],
+        answer: 0,
+        explain: "Sau khi đoán đúng Sequence Number, kẻ tấn công chiếm quyền điều khiển phiên TCP đang trao đổi.",
+        tip: "Mẹo nhớ: TCP Hijacking = Chiếm quyền kết nối TCP."
+      },
+      {
+        id: "c1_33", chapter: "c1", chapterName: "Chương 1",
+        q: "Phần mềm độc hại nào thay đổi cài đặt trình duyệt, chuyển hướng trang chủ?",
+        options: ["Virus", "Worm", "Trojan", "Browser hijacker"],
+        answer: 3,
+        explain: "Browser hijacker can thiệp trình duyệt, ép người dùng truy cập trang web quảng cáo.",
+        tip: "Mẹo nhớ: Đổi cài đặt trình duyệt = Browser hijacker."
+      },
+      {
+        id: "c1_34", chapter: "c1", chapterName: "Chương 1",
+        q: "Mô hình bảo mật cơ bản gồm mấy thành phần chính?",
+        options: ["2", "3", "4", "5"],
+        answer: 2,
+        explain: "4 thành phần chính: Cryptosystem, Firewall, Anti-Malware System, và IDS.",
+        tip: "Mẹo nhớ: 4 thành phần bảo mật cơ bản."
+      },
+      {
+        id: "c1_35", chapter: "c1", chapterName: "Chương 1",
+        q: "Biện pháp nào giúp ngăn chặn tấn công Man-in-the-middle hiệu quả?",
+        options: ["Đóng cổng", "Mã hóa và xác thực các gói IP", "Dùng mật khẩu mạnh", "Cài IDS"],
+        answer: 1,
+        explain: "Mã hóa ngăn chặn đọc trộm và xác thực gói tin giúp phát hiện kẻ trung gian can thiệp.",
+        tip: "Mẹo nhớ: Chống MITM = Mã hóa và xác thực các gói tin."
+      },
+      {
+        id: "c1_36", chapter: "c1", chapterName: "Chương 1",
+        q: "Trong mạng không dây (WLAN), việc nghe lén thường dễ dàng hơn vì?",
+        options: ["Tốc độ cao", "Môi trường truyền thông là không khí, tín hiệu phát tán", "Không có tường lửa", "Mật khẩu yếu"],
+        answer: 1,
+        explain: "Sóng vô tuyến phát tán tự do trong không khí, ai nằm trong vùng phủ sóng đều có thể bắt gói.",
+        tip: "Mẹo nhớ: WiFi dùng môi trường không khí nên dễ bị nghe lén."
+      },
+      {
+        id: "c1_37", chapter: "c1", chapterName: "Chương 1",
+        q: "Công cụ Cain & Abel thường được dùng để?",
+        options: ["Quét cổng", "Khôi phục mật khẩu và bắt gói tin password sniffing", "Mã hóa tệp", "Duyệt web ẩn danh"],
+        answer: 1,
+        explain: "Cain & Abel hỗ trợ khôi phục mật khẩu, bắt gói tin sniffing và bẻ khóa từ điển.",
+        tip: "Mẹo nhớ: Cain & Abel = Khôi phục mật khẩu & Sniffing."
+      },
+      {
+        id: "c1_38", chapter: "c1", chapterName: "Chương 1",
+        q: "Tấn công từ chối dịch vụ phân tán (DDoS) khác với DoS ở điểm nào?",
+        options: ["Chỉ tấn công web", "Sử dụng nhiều máy tính (zombie) cùng lúc để tấn công", "Tấn công vào tầng ứng dụng", "Không thể ngăn chặn"],
+        answer: 1,
+        explain: "DDoS huy động botnet gồm nhiều máy tính zombie phân tán cùng tấn công đồng loạt.",
+        tip: "Mẹo nhớ: DDoS = Nhiều máy tính (zombie) tấn công phân tán."
+      },
+      {
+        id: "c1_39", chapter: "c1", chapterName: "Chương 1",
+        q: "Tính toàn vẹn (Integrity) thường được đảm bảo bằng cơ chế nào?",
+        options: ["Mã hóa đối xứng", "Hàm băm (Hash) và chữ ký số", "Tường lửa", "Backup dữ liệu"],
+        answer: 1,
+        explain: "Hàm băm tạo chuỗi đại diện duy nhất; bất kỳ sự thay đổi nào cũng làm thay đổi giá trị băm.",
+        tip: "Mẹo nhớ: Toàn vẹn dữ liệu = Hàm băm (Hash) + Chữ ký số."
+      },
+      {
+        id: "c1_40", chapter: "c1", chapterName: "Chương 1",
+        q: "Kẻ khủng bố mạng (cyber terrorists) sử dụng máy tính để?",
+        options: ["Giải trí", "Phá hoại tài sản công cộng và gây nguy hiểm đến tính mạng", "Kiểm tra lỗ hổng", "Học tập"],
+        answer: 1,
+        explain: "Khủng bố mạng nhằm phá hoại hạ tầng trọng yếu (điện, nước, giao thông) gây nguy hiểm tính mạng.",
+        tip: "Mẹo nhớ: Khủng bố mạng = Gây nguy hiểm tính mạng và phá hoại hạ tầng công cộng."
+      },
+      {
+        id: "c1_41", chapter: "c1", chapterName: "Chương 1",
+        q: "Lệnh nào giúp xác định đường đi của gói tin đến máy đích trong Windows?",
+        options: ["ping", "ipconfig", "tracert", "nslookup"],
+        answer: 2,
+        explain: "tracert hiển thị danh sách tất cả các router mà gói tin đi qua trên đường đi.",
+        tip: "Mẹo nhớ: Dò đường đi của gói tin trong Windows = tracert."
+      },
+      {
+        id: "c1_43", chapter: "c1", chapterName: "Chương 1",
+        q: "Để xem địa chỉ MAC, IP, subnet mask và default gateway trong Windows, dùng lệnh?",
+        options: ["ipconfig /all", "netstat -r", "arp -a", "nslookup"],
+        answer: 0,
+        explain: "ipconfig /all hiển thị đầy đủ thông tin card mạng bao gồm cả địa chỉ vật lý (MAC).",
+        tip: "Mẹo nhớ: Xem địa chỉ MAC và IP đầy đủ = ipconfig /all."
+      },
+      {
+        id: "c1_44", chapter: "c1", chapterName: "Chương 1",
+        q: "Tấn công từ chối dịch vụ dạng Ping of Death sử dụng gói ICMP có kích thước?",
+        options: ["Nhỏ hơn 64 byte", "Lớn hơn 65535 byte (vượt quá kích thước tối đa cho phép)", "Đúng 1500 byte", "Bất kỳ"],
+        answer: 1,
+        explain: "Ping of Death phân mảnh gói tin ICMP vượt quá giới hạn 65535 byte gây tràn bộ đệm hệ điều hành.",
+        tip: "Mẹo nhớ: Ping of Death = Gói ICMP vượt quá 65535 byte."
+      },
+      {
+        id: "c1_45", chapter: "c1", chapterName: "Chương 1",
+        q: "Tính sẵn sàng (Availability) thường được đảm bảo bởi các giải pháp nào?",
+        options: ["Mã hóa và chữ ký", "Sao lưu dự phòng (backup, redundancy), QoS, chống DDoS", "Xác thực mạnh", "Tường lửa"],
+        answer: 1,
+        explain: "Dự phòng máy chủ, sao lưu dữ liệu và chống nghẽn đường truyền giúp hệ thống luôn sẵn sàng.",
+        tip: "Mẹo nhớ: Sẵn sàng = Backup dự phòng + Chống DDoS."
+      },
+
+      // CHƯƠNG 2
+      {
+        id: "c2_1", chapter: "c2", chapterName: "Chương 2",
+        q: "Công cụ quản trị từ xa (RAT) nổi tiếng chạy trên hệ điều hành Windows được phát hành năm 1998 có tên là gì và mở cổng mặc định nào?",
+        options: ["ILOVEYOU - cổng 25", "Back Orifice - cổng 31337", "Melissa - cổng 80", "NetBus - cổng 12345"],
+        answer: 1,
+        explain: "Back Orifice là Trojan RAT đầu tiên, mở cổng UDP 31337 để hacker điều khiển từ xa.",
+        tip: "Mẹo nhớ: Back Orifice = Cổng 31337."
+      },
+      {
+        id: "c2_2", chapter: "c2", chapterName: "Chương 2",
+        q: "Điểm khác biệt chính giữa Trojan và Virus là gì?",
+        options: ["Trojan tự nhân bản, Virus không", "Trojan không tự nhân bản, chỉ chạy ngầm và thường mở backdoor", "Trojan chỉ lây qua email", "Virus không gây hại"],
+        answer: 1,
+        explain: "Trojan không tự sao chép nhân bản; nó chỉ hoạt động bí mật và tạo cửa hậu.",
+        tip: "Mẹo nhớ: Trojan KHÔNG tự nhân bản."
+      },
+      {
+        id: "c2_3", chapter: "c2", chapterName: "Chương 2",
+        q: "Công dụng phổ biến nhất của Trojan là gì?",
+        options: ["Tự sao chép qua mạng", "Thiết lập quyền điều khiển từ xa (RAT) cho hacker", "Mã hóa dữ liệu tống tiền", "Xóa boot sector"],
+        answer: 1,
+        explain: "Trojan RAT được thiết kế chủ yếu để kẻ tấn công chiếm quyền kiểm soát máy tính từ xa.",
+        tip: "Mẹo nhớ: Trojan chủ yếu dùng để điều khiển máy tính từ xa (RAT)."
+      },
+      {
+        id: "c2_4", chapter: "c2", chapterName: "Chương 2",
+        q: "RAT (Remote Access Trojan) hoạt động như thế nào?",
+        options: ["Ghi lại các phím nhấn", "Biến máy nạn nhân thành server để hacker kết nối và điều khiển", "Mở cổng 21 để chia sẻ file", "Phá hủy đĩa cứng"],
+        answer: 1,
+        explain: "RAT gồm server chạy ngầm trên máy nạn nhân, cho phép client của hacker kết nối vào điều khiển.",
+        tip: "Mẹo nhớ: Máy nạn nhân thành server cho hacker kết nối."
+      },
+      {
+        id: "c2_5", chapter: "c2", chapterName: "Chương 2",
+        q: "Keylogger có chức năng chính là gì?",
+        options: ["Điều khiển máy tính từ xa", "Ghi lại toàn bộ các phím nhấn trên bàn phím", "Mở cổng FTP", "Phá hoại registry"],
+        answer: 1,
+        explain: "Keylogger theo dõi và ghi lại mọi thao tác bàn phím của người dùng.",
+        tip: "Mẹo nhớ: Keylogger = Ghi lại phím bấm bàn phím."
+      },
+      {
+        id: "c2_6", chapter: "c2", chapterName: "Chương 2",
+        q: "FTP Trojan thường mở cổng nào để cho phép truy cập file?",
+        options: ["Cổng 80", "Cổng 21", "Cổng 443", "Cổng 31337"],
+        answer: 1,
+        explain: "Giao thức FTP mặc định hoạt động trên cổng TCP 21.",
+        tip: "Mẹo nhớ: FTP = Cổng 21."
+      },
+      {
+        id: "c2_7", chapter: "c2", chapterName: "Chương 2",
+        q: "Trojan chiếm quyền kiểu leo thang (Privilege Escalation) thường được gắn vào đâu?",
+        options: ["File nhạc", "Ứng dụng hệ thống", "Boot sector", "File ảnh"],
+        answer: 1,
+        explain: "Trojan gắn vào ứng dụng hệ thống để khi ứng dụng khởi chạy sẽ cấp quyền quản trị (SYSTEM/root).",
+        tip: "Mẹo nhớ: Leo thang đặc quyền = Gắn vào ứng dụng hệ thống."
+      },
+      {
+        id: "c2_8", chapter: "c2", chapterName: "Chương 2",
+        q: "Con đường xâm nhập phổ biến của Trojan là gì?",
+        options: ["Chỉ qua USB", "File đính kèm email, phần mềm miễn phí, download game, screensaver", "Chỉ qua mạng LAN", "Chỉ qua boot sector"],
+        answer: 1,
+        explain: "Trojan ngụy trang trong các file download miễn phí, file đính kèm email hoặc game crack.",
+        tip: "Mẹo nhớ: Ngụy trang trong file đính kèm, game, ứng dụng miễn phí."
+      },
+      {
+        id: "c2_9", chapter: "c2", chapterName: "Chương 2",
+        q: "Để phát hiện Trojan trên máy, có thể dùng công cụ nào?",
+        options: ["Netstat, TCPView, Process Viewer", "Chỉ có antivirus", "Notepad", "Paint"],
+        answer: 0,
+        explain: "Netstat và TCPView phát hiện kết nối cổng bất thường, Process Viewer xem tiến trình lạ.",
+        tip: "Mẹo nhớ: Giám sát cổng và tiến trình = Netstat, TCPView, Process Viewer."
+      },
+      {
+        id: "c2_10", chapter: "c2", chapterName: "Chương 2",
+        q: "Virus máy tính là gì?",
+        options: ["Chương trình độc lập tự sao chép", "Chương trình gắn vào file chủ, sửa đổi để nhận quyền điều khiển khi file chủ chạy", "Phần cứng hỏng", "Phần mềm diệt virus"],
+        answer: 1,
+        explain: "Virus bắt buộc phải có file chủ để ký sinh và lây lan khi file chủ được thực thi.",
+        tip: "Mẹo nhớ: Virus bắt buộc PHẢI CÓ FILE CHỦ."
+      },
+      {
+        id: "c2_11", chapter: "c2", chapterName: "Chương 2",
+        q: "Điểm khác biệt chính giữa Virus và Worm là gì?",
+        options: ["Virus tự lây qua mạng, Worm cần file chủ", "Virus cần gắn vào file chủ, Worm là chương trình độc lập tự lan truyền qua mạng", "Worm chỉ phá hoại, Virus không", "Virus chỉ hoạt động trên Windows"],
+        answer: 1,
+        explain: "Virus cần vật chủ; Worm là phần mềm độc lập tự động lây lan qua mạng.",
+        tip: "Mẹo nhớ: Virus cần vật chủ; Worm độc lập tự lây qua mạng."
+      },
+      {
+        id: "c2_12", chapter: "c2", chapterName: "Chương 2",
+        q: "Boot Virus lây nhiễm vào đâu?",
+        options: ["File .EXE", "Cung boot của đĩa (Master Boot Record / Boot Sector)", "Macro trong Word", "File hình ảnh"],
+        answer: 1,
+        explain: "Boot virus nằm đè lên cung khởi động MBR, chạy trước cả khi hệ điều hành khởi động.",
+        tip: "Mẹo nhớ: Boot Virus = Lây vào Boot Sector / MBR."
+      },
+      {
+        id: "c2_13", chapter: "c2", chapterName: "Chương 2",
+        q: "Macro Virus thường lây vào loại file nào?",
+        options: ["File thực thi", "Tài liệu Word, Excel, PowerPoint", "File boot sector", "File âm thanh"],
+        answer: 1,
+        explain: "Macro virus viết bằng VBA chèn vào tài liệu văn phòng Word, Excel.",
+        tip: "Mẹo nhớ: Macro Virus = Tài liệu Word, Excel."
+      },
+      {
+        id: "c2_14", chapter: "c2", chapterName: "Chương 2",
+        q: "Stealth Virus có khả năng gì đặc biệt?",
+        options: ["Tự thay đổi mã mỗi lần lây", "Ẩn mình trước các chương trình chống virus", "Giữ nguyên kích thước file", "Chỉ lây qua email"],
+        answer: 1,
+        explain: "Stealth virus che giấu sự hiện diện của mình trước phần mềm diệt virus.",
+        tip: "Mẹo nhớ: Stealth = Tàng hình, ẩn mình trước antivirus."
+      },
+      {
+        id: "c2_15", chapter: "c2", chapterName: "Chương 2",
+        q: "Polymorphic Virus có đặc điểm gì?",
+        options: ["Không lây qua mạng", "Thay đổi mã lệnh mỗi lần lây nhiễm để tránh bị nhận dạng", "Chỉ lây boot sector", "Ghi đè toàn bộ file"],
+        answer: 1,
+        explain: "Polymorphic virus thay đổi bộ giải mã sau mỗi lần lây để làm sai lệch chữ ký.",
+        tip: "Mẹo nhớ: Polymorphic = Đa hình (Thay đổi mã giải mã mỗi lần lây)."
+      },
+      {
+        id: "c2_16", chapter: "c2", chapterName: "Chương 2",
+        q: "Cavity Virus duy trì đặc điểm gì khi lây nhiễm?",
+        options: ["Thay đổi kích thước file", "Kích thước file không thay đổi", "Tạo shell xung quanh file", "Ghi đè đầu file"],
+        answer: 1,
+        explain: "Cavity virus chèn vào các khoảng trống rỗng trong file thực thi, không làm tăng dung lượng file.",
+        tip: "Mẹo nhớ: Cavity = Chui vào lỗ trống, giữ nguyên kích thước file."
+      },
+      {
+        id: "c2_17", chapter: "c2", chapterName: "Chương 2",
+        q: "Shell Virus hoạt động bằng cách nào?",
+        options: ["Nối code vào đầu file", "Tạo một lớp vỏ (shell) xung quanh đoạn mã của chương trình chủ", "Ghi đè hoàn toàn file", "Mã hóa toàn bộ"],
+        answer: 1,
+        explain: "Shell virus bọc lấy chương trình chủ, chiếm quyền điều khiển trước khi gọi file gốc.",
+        tip: "Mẹo nhớ: Shell = Tạo lớp vỏ bọc chương trình chủ."
+      },
+      {
+        id: "c2_18", chapter: "c2", chapterName: "Chương 2",
+        q: "Intrusive Virus thực hiện hành vi gì?",
+        options: ["Chỉ nối thêm code", "Ghi đè một phần hoặc toàn bộ code của file bị lây nhiễm", "Tạo vùng nhớ riêng", "Kiểm tra tồn tại"],
+        answer: 1,
+        explain: "Intrusive virus ghi đè trực tiếp lên phần code của file chủ làm hỏng chương trình.",
+        tip: "Mẹo nhớ: Intrusive = Ghi đè phá hủy code file chủ."
+      },
+      {
+        id: "c2_19", chapter: "c2", chapterName: "Chương 2",
+        q: "Add-on Virus khác với Intrusive Virus ở điểm nào?",
+        options: ["Ghi code nối tiếp vào đầu hoặc cuối file mà không sửa đổi phần còn lại", "Ghi đè toàn bộ", "Tạo shell", "Mã hóa"],
+        answer: 0,
+        explain: "Add-on virus chỉ nối thêm code vào đầu hoặc cuối file, bảo tồn phần code gốc.",
+        tip: "Mẹo nhớ: Add-on = Nối thêm vào đầu/cuối, không ghi đè."
+      },
+      {
+        id: "c2_20", chapter: "c2", chapterName: "Chương 2",
+        q: "Kỹ thuật lây nhiễm của virus file .COM thường gồm bước nào sau đây?",
+        options: ["Mở file, ghi lại 3 byte đầu, chèn lệnh nhảy và thân virus", "Chỉ sao chép virus vào cuối file", "Nén file chủ", "Xóa file chủ"],
+        answer: 0,
+        explain: "File .COM chạy từ byte đầu; virus lưu 3 byte đầu và thay bằng lệnh nhảy JMP đến thân virus.",
+        tip: "Mẹo nhớ: Virus file .COM = Đổi 3 byte đầu thành lệnh nhảy."
+      },
+      {
+        id: "c2_21", chapter: "c2", chapterName: "Chương 2",
+        q: "Kỹ thuật mã hóa của virus nhằm mục đích gì?",
+        options: ["Tăng tốc độ lây lan", "Che giấu mã lệnh thực sự, tránh bị phát hiện", "Phá hoại dữ liệu", "Tăng kích thước file"],
+        answer: 1,
+        explain: "Mã hóa giúp thân virus trở thành chuỗi byte ngẫu nhiên, che giấu chữ ký trước phần mềm quét.",
+        tip: "Mẹo nhớ: Mã hóa = Che giấu mã lệnh và chữ ký."
+      },
+      {
+        id: "c2_22", chapter: "c2", chapterName: "Chương 2",
+        q: "Kỹ thuật kiểm tra sự tồn tại (Existence Check) của virus dùng để làm gì?",
+        options: ["Tăng tốc độ lây", "Tránh lây nhiễm nhiều lần vào cùng một file hoặc bộ nhớ", "Gửi email", "Xóa dữ liệu"],
+        answer: 1,
+        explain: "Tránh lây nhiễm trùng lặp nhiều lần vào một file gây phình to dung lượng bất thường.",
+        tip: "Mẹo nhớ: Existence Check = Tránh lây trùng lặp."
+      },
+      {
+        id: "c2_23", chapter: "c2", chapterName: "Chương 2",
+        q: "Kỹ thuật thường trú (Memory Resident) của virus boot nhằm mục đích gì?",
+        options: ["Phân phối một vùng nhớ riêng để lưu chương trình virus", "Thay đổi kích thước file", "Gửi email tự động", "Ghi log bàn phím"],
+        answer: 0,
+        explain: "Chiếm một vùng trong RAM để tiếp tục kiểm soát hệ thống sau khi khởi động.",
+        tip: "Mẹo nhớ: Memory Resident = Thường trú cố định trong RAM."
+      },
+      {
+        id: "c2_24", chapter: "c2", chapterName: "Chương 2",
+        q: "Heuristic scanning trong phần mềm diệt virus là gì?",
+        options: ["Quét chữ ký virus đã biết", "Phát hiện đoạn mã đáng ngờ dựa trên hành vi hoặc cấu trúc lạ", "Chỉ quét file boot", "Chỉ quét email"],
+        answer: 1,
+        explain: "Heuristic quét phân tích hành vi và cấu trúc mã lạ để phát hiện virus mới chưa có chữ ký.",
+        tip: "Mẹo nhớ: Heuristic = Quét dựa trên hành vi và suy đoán cấu trúc lạ."
+      },
+      {
+        id: "c2_25", chapter: "c2", chapterName: "Chương 2",
+        q: "Kỹ thuật chống mô phỏng (Anti-emulation) của virus dùng để làm gì?",
+        options: ["Chống lại tường lửa", "Làm khó khăn cho việc phân tích hành vi trong môi trường giả lập", "Tăng tốc lây lan", "Mã hóa dữ liệu"],
+        answer: 1,
+        explain: "Gây rối hoặc ngắt chạy khi phát hiện đang ở trong hộp cát giả lập (Sandbox/Emulator) của antivirus.",
+        tip: "Mẹo nhớ: Anti-emulation = Chống môi trường giả lập Sandbox."
+      },
+      {
+        id: "c2_26", chapter: "c2", chapterName: "Chương 2",
+        q: "ILOVEYOU virus lây lan chủ yếu qua đâu?",
+        options: ["USB", "Email attachment với tệp LOVE-LETTER-FOR-YOU.TXT.VBS", "Boot sector", "Chia sẻ file mạng"],
+        answer: 1,
+        explain: "ILOVEYOU là sâu phát tán qua file đính kèm email có tên LOVE-LETTER-FOR-YOU.TXT.VBS.",
+        tip: "Mẹo nhớ: ILOVEYOU lây qua file đính kèm email LOVE-LETTER-FOR-YOU."
+      },
+      {
+        id: "c2_27", chapter: "c2", chapterName: "Chương 2",
+        q: "Klez virus nổi bật với khả năng gì?",
+        options: ["Chỉ phá hủy đĩa cứng", "Tự động chạy khi xem trước email và giả mạo địa chỉ người gửi", "Ghi log bàn phím", "Mở cổng FTP"],
+        answer: 1,
+        explain: "Klez khai thác lỗi preview của Outlook để tự kích hoạt và giả mạo (spoof) email gửi.",
+        tip: "Mẹo nhớ: Klez = Tự chạy khi xem trước (preview) email."
+      },
+      {
+        id: "c2_28", chapter: "c2", chapterName: "Chương 2",
+        q: "Mydoom virus gây thiệt hại ước tính khoảng bao nhiêu tỷ USD?",
+        options: ["15 tỷ", "38 tỷ", "4 tỷ", "1.2 tỷ"],
+        answer: 1,
+        explain: "Mydoom gây thiệt hại ước tính lên tới 38 tỷ USD, một trong những đợt bùng phát đắt đỏ nhất.",
+        tip: "Mẹo nhớ: Mydoom = 38 tỷ USD."
+      },
+      {
+        id: "c2_29", chapter: "c2", chapterName: "Chương 2",
+        q: "Virus có các tính chất cơ bản nào?",
+        options: ["Chỉ lây lan và phá hoại", "Lây lan, phá hoại, nhỏ gọn, tương thích, phát triển kế thừa", "Chỉ nhỏ gọn và tương thích", "Chỉ phá hoại"],
+        answer: 1,
+        explain: "5 tính chất cơ bản: Lây lan, phá hoại, nhỏ gọn, tương thích nền tảng và phát triển kế thừa.",
+        tip: "Mẹo nhớ: 5 tính chất: Lây lan, phá hoại, nhỏ gọn, tương thích, kế thừa."
+      },
+      {
+        id: "c2_30", chapter: "c2", chapterName: "Chương 2",
+        q: "Để phòng chống mã độc cơ bản, biện pháp quan trọng nhất là gì?",
+        options: ["Tắt máy tính khi không dùng", "Không mở file lạ, cập nhật antivirus, không download từ nguồn không tin cậy", "Chỉ dùng máy không có mạng", "Xóa hết file .exe"],
+        answer: 1,
+        explain: "Nâng cao cảnh giác không mở file lạ và cập nhật thường xuyên cơ sở dữ liệu antivirus.",
+        tip: "Mẹo nhớ: Không mở file lạ + Cập nhật phần mềm diệt virus."
+      },
+      {
+        id: "c2_31", chapter: "c2", chapterName: "Chương 2",
+        q: "Cổng mặc định nào thường được Back Orifice sử dụng?",
+        options: ["80", "21", "31337", "443"],
+        answer: 2,
+        explain: "Back Orifice dùng cổng UDP 31337.",
+        tip: "Mẹo nhớ: Back Orifice = Cổng 31337."
+      },
+      {
+        id: "c2_32", chapter: "c2", chapterName: "Chương 2",
+        q: "NetBus là Trojan thuộc loại nào?",
+        options: ["Keylogger", "RAT (Remote Access Trojan)", "FTP Trojan", "Logic bomb"],
+        answer: 1,
+        explain: "NetBus là phần mềm RAT điều khiển máy tính từ xa qua cổng 12345.",
+        tip: "Mẹo nhớ: NetBus = RAT điều khiển từ xa."
+      },
+      {
+        id: "c2_33", chapter: "c2", chapterName: "Chương 2",
+        q: "Để xây dựng ACL chặn Trojan, cần chặn các cổng nào?",
+        options: ["Chỉ cổng 80, 443", "Các cổng thường được Trojan sử dụng (31337, 12345, 27374, 54320...)", "Tất cả cổng trên 1024", "Không cần chặn"],
+        answer: 1,
+        explain: "Chặn danh sách các cổng quen thuộc của các họ Trojan phổ biến để ngăn hacker kết nối.",
+        tip: "Mẹo nhớ: Chặn các cổng quen thuộc của Trojan (31337, 12345...)."
+      },
+      {
+        id: "c2_34", chapter: "c2", chapterName: "Chương 2",
+        q: "Tấn công kiểu Ping of Death thuộc dạng tấn công nào?",
+        options: ["Từ chối dịch vụ (DoS)", "Đánh cắp mật khẩu", "Giả mạo danh tính", "Từ chối dịch vụ qua ICMP với gói tin quá khổ"],
+        answer: 3,
+        explain: "Ping of Death gây sập hệ thống thông qua việc gửi các gói ICMP vượt chuẩn.",
+        tip: "Mẹo nhớ: DoS qua gói ICMP quá khổ = Ping of Death."
+      },
+      {
+        id: "c2_35", chapter: "c2", chapterName: "Chương 2",
+        q: "Công cụ nào sau đây dùng để phân tích mã độc (disassembler, debugger)?",
+        options: ["Wireshark", "IDA Pro", "Nmap", "Cain & Abel"],
+        answer: 1,
+        explain: "IDA Pro là công cụ dịch ngược mã nhị phân (Disassembler) hàng đầu hiện nay.",
+        tip: "Mẹo nhớ: Dịch ngược phân tích mã độc = IDA Pro."
+      },
+      {
+        id: "c2_36", chapter: "c2", chapterName: "Chương 2",
+        q: "Virus Creation Kit dùng để làm gì?",
+        options: ["Diệt virus", "Tự động sinh ra các virus mới", "Quét heuristic", "Giám sát cổng"],
+        answer: 1,
+        explain: "Bộ công cụ tự động sinh ra biến thể virus mới mà không cần kiến thức lập trình sâu.",
+        tip: "Mẹo nhớ: Creation Kit = Công cụ tạo virus."
+      },
+      {
+        id: "c2_37", chapter: "c2", chapterName: "Chương 2",
+        q: "Để kiểm tra một file có phải Trojan hay không, nên sử dụng dịch vụ trực tuyến nào?",
+        options: ["Google Drive", "Virus Total", "Facebook", "Microsoft Word"],
+        answer: 1,
+        explain: "VirusTotal quét tệp đồng thời với hơn 70 engine diệt virus hàng đầu.",
+        tip: "Mẹo nhớ: Quét file đa engine online = Virus Total."
+      },
+      {
+        id: "c2_38", chapter: "c2", chapterName: "Chương 2",
+        q: "Kỹ thuật tạo vỏ bọc (Obfuscation) của virus nhằm mục đích gì?",
+        options: ["Chống gỡ rối và dịch ngược mã", "Tăng tốc độ", "Giảm kích thước", "Mã hóa dữ liệu nạn nhân"],
+        answer: 0,
+        explain: "Obfuscation làm rối mã logic để gây khó khăn cho việc phân tích và dịch ngược mã.",
+        tip: "Mẹo nhớ: Obfuscation = Làm rối mã chống dịch ngược."
+      },
+      {
+        id: "c2_39", chapter: "c2", chapterName: "Chương 2",
+        q: "Virus biến hình (Metamorphic) khác với đa hình (Polymorphic) ở điểm nào?",
+        options: ["Sinh ra cả đoạn mã mới hoàn toàn, thay đổi chính logic virus", "Chỉ thay đổi bộ giải mã", "Giữ nguyên chữ ký", "Không có gì khác"],
+        answer: 0,
+        explain: "Polymorphic chỉ thay đổi bộ giải mã; Metamorphic viết lại toàn bộ thân code mới sau mỗi lần lây.",
+        tip: "Mẹo nhớ: Polymorphic = Đổi bộ giải mã; Metamorphic = Đổi toàn bộ thân code."
+      },
+      {
+        id: "c2_40", chapter: "c2", chapterName: "Chương 2",
+        q: "ICV scanning (Integrity Check Value) dùng để phát hiện virus bằng cách nào?",
+        options: ["So sánh giá trị băm của file sạch với file hiện tại", "Tìm chữ ký", "Giám sát cổng", "Quét hành vi"],
+        answer: 0,
+        explain: "So sánh giá trị băm (Hash) ban đầu với file hiện tại để phát hiện sự thay đổi toàn vẹn.",
+        tip: "Mẹo nhớ: ICV = Kiểm tra giá trị toàn vẹn băm của file."
+      },
+
+      // CHƯƠNG 3
+      {
+        id: "c3_1", chapter: "c3", chapterName: "Chương 3",
+        q: "Tường lửa (firewall) hoạt động như một rào chắn giữa những vùng mạng nào?",
+        options: ["Mạng LAN và mạng WAN", "Mạng tin cậy (trusted) và mạng không tin cậy (untrusted)", "Mạng có dây và mạng không dây", "Mạng nội bộ và mạng DMZ"],
+        answer: 1,
+        explain: "Tường lửa rào chắn giữa vùng tin cậy nội bộ và vùng ngoài nguy hiểm.",
+        tip: "Mẹo nhớ: Trusted (Tin cậy) vs Untrusted (Không tin cậy)."
+      },
+      {
+        id: "c3_2", chapter: "c3", chapterName: "Chương 3",
+        q: "Chức năng nào của tường lửa cho phép kiểm soát loại dịch vụ được phép (ví dụ HTTP, FTP)?",
+        options: ["Service Control", "Direction Control", "User Control", "Behaviour Control"],
+        answer: 0,
+        explain: "Service Control cho phép hoặc chặn dựa trên loại giao thức và dịch vụ mạng.",
+        tip: "Mẹo nhớ: Kiểm soát dịch vụ = Service Control."
+      },
+      {
+        id: "c3_3", chapter: "c3", chapterName: "Chương 3",
+        q: "Kiểm soát hướng (Direction Control) trên tường lửa có nghĩa là gì?",
+        options: ["Kiểm soát người dùng nào được truy cập", "Kiểm soát chiều lưu lượng (vào hoặc ra khỏi mạng)", "Kiểm soát hành vi bất thường", "Kiểm soát địa chỉ MAC"],
+        answer: 1,
+        explain: "Direction Control lọc theo chiều lưu lượng đi vào (Inbound) hoặc đi ra (Outbound).",
+        tip: "Mẹo nhớ: Direction = Chiều lưu lượng Vào / Ra."
+      },
+      {
+        id: "c3_4", chapter: "c3", chapterName: "Chương 3",
+        q: "Tường lửa phần cứng nào sau đây là sản phẩm phổ biến?",
+        options: ["IPCOP", "Cisco ASA", "ISA Server", "Windows Firewall"],
+        answer: 1,
+        explain: "Cisco ASA là thiết bị phần cứng tường lửa chuyên dụng.",
+        tip: "Mẹo nhớ: Cisco ASA = Phần cứng chuyên dụng."
+      },
+      {
+        id: "c3_5", chapter: "c3", chapterName: "Chương 3",
+        q: "Loại tường lửa lọc gói tin (Packet-filtering) hoạt động ở tầng nào của mô hình OSI?",
+        options: ["Tầng ứng dụng", "Tầng giao vận", "Tầng mạng", "Tầng liên kết dữ liệu"],
+        answer: 2,
+        explain: "Packet-filtering kiểm tra địa chỉ IP ở Tầng Mạng (Network Layer - Layer 3).",
+        tip: "Mẹo nhớ: Lọc gói tin IP = Tầng mạng (Layer 3)."
+      },
+      {
+        id: "c3_6", chapter: "c3", chapterName: "Chương 3",
+        q: "Điểm hạn chế chính của tường lửa lọc gói tin truyền thống là gì?",
+        options: ["Quá chậm", "Không kiểm tra nội dung gói tin, dễ bị giả mạo", "Không hỗ trợ NAT", "Chỉ hoạt động với IPv6"],
+        answer: 1,
+        explain: "Chỉ kiểm tra IP/Port ở header, bỏ qua payload nên không phát hiện được mã độc ẩn bên trong.",
+        tip: "Mẹo nhớ: Lọc gói truyền thống không kiểm tra nội dung payload."
+      },
+      {
+        id: "c3_7", chapter: "c3", chapterName: "Chương 3",
+        q: "Circuit-Level Gateway hoạt động chủ yếu dựa vào việc kiểm tra gì?",
+        options: ["Nội dung ứng dụng", "Quá trình bắt tay TCP (three-way handshake)", "Địa chỉ MAC", "Tên miền"],
+        answer: 1,
+        explain: "Xác minh bắt tay TCP hợp lệ mà không phân tích sâu nội dung ứng dụng.",
+        tip: "Mẹo nhớ: Cổng mức mạch = Bắt tay 3 bước TCP."
+      },
+      {
+        id: "c3_8", chapter: "c3", chapterName: "Chương 3",
+        q: "Circuit-Level Gateway nằm ở tầng nào của mô hình OSI?",
+        options: ["Tầng mạng", "Tầng giao vận (Transport Layer)", "Tầng ứng dụng", "Tầng liên kết"],
+        answer: 1,
+        explain: "Giám sát phiên TCP ở Tầng Giao vận (Transport Layer - Layer 4).",
+        tip: "Mẹo nhớ: Mức mạch TCP = Tầng giao vận (Transport Layer)."
+      },
+      {
+        id: "c3_9", chapter: "c3", chapterName: "Chương 3",
+        q: "Tường lửa cấp ứng dụng (Application-Level Firewall) có khả năng đặc biệt nào so với packet filter?",
+        options: ["Nhanh hơn", "Phân tích nội dung dữ liệu, ngăn chặn mã độc", "Dễ cấu hình hơn", "Rẻ hơn"],
+        answer: 1,
+        explain: "Mở xem payload ở tầng 7 để ngăn chặn mã độc và các đòn tấn công ứng dụng.",
+        tip: "Mẹo nhớ: Mức ứng dụng = Đọc sâu nội dung dữ liệu."
+      },
+      {
+        id: "c3_11", chapter: "c3", chapterName: "Chương 3",
+        q: "Trong kiến trúc bảo mật, vùng tin cậy (trusted zone) thường là gì?",
+        options: ["Mạng bên ngoài (Internet)", "Mạng nội bộ của tổ chức", "Khu vực DMZ", "Mạng khách"],
+        answer: 1,
+        explain: "Trusted Zone đại diện cho hạ tầng mạng LAN nội bộ an toàn.",
+        tip: "Mẹo nhớ: Vùng tin cậy = Mạng nội bộ tổ chức."
+      },
+      {
+        id: "c3_12", chapter: "c3", chapterName: "Chương 3",
+        q: "Kiến trúc tường lửa đơn lẻ (single firewall) có đặc điểm gì?",
+        options: ["Sử dụng nhiều tường lửa song song", "Chỉ có một thiết bị duy nhất bảo vệ mạng", "Kết hợp với IDS/IPS", "Luôn có DMZ"],
+        answer: 1,
+        explain: "Chỉ dựa vào đúng một thiết bị duy nhất, tạo điểm nghẽn và rủi ro sập toàn bộ.",
+        tip: "Mẹo nhớ: Single Firewall = Đúng 1 thiết bị duy nhất."
+      },
+      {
+        id: "c3_13", chapter: "c3", chapterName: "Chương 3",
+        q: "Mô hình screened host là một dạng kiến trúc tường lửa kết hợp, trong đó thành phần nào đứng trước?",
+        options: ["Chỉ có router lọc", "Router lọc gói kết hợp với bastion host", "Nhiều tường lửa lớp", "DMZ kép"],
+        answer: 1,
+        explain: "Router sàng lọc gói tin đứng trước, chuyển tiếp luồng dữ liệu tới Bastion host.",
+        tip: "Mẹo nhớ: Screened host = Screening Router + Bastion Host."
+      },
+      {
+        id: "c3_14", chapter: "c3", chapterName: "Chương 3",
+        q: "Trong kiến trúc screened subnet, vùng DMZ được tạo ra để làm gì?",
+        options: ["Lưu trữ dữ liệu sao lưu", "Đặt các máy chủ công cộng (web, mail) cách ly với mạng nội bộ", "Kết nối với mạng không dây", "Quản lý người dùng"],
+        answer: 1,
+        explain: "DMZ cách ly máy chủ dịch vụ công khai với mạng LAN nội bộ an toàn.",
+        tip: "Mẹo nhớ: DMZ = Đặt Web/Mail công cộng cách ly khỏi LAN."
+      },
+      {
+        id: "c3_16", chapter: "c3", chapterName: "Chương 3",
+        q: "Nguyên tắc tối thiểu hóa quyền truy cập (least privilege) trong thiết kế tường lửa có nghĩa là gì?",
+        options: ["Cho phép tất cả, sau đó chặn dần", "Chỉ cho phép những dịch vụ, cổng, IP thực sự cần thiết", "Chặn tất cả, không cho gì", "Ưu tiên các giao thức an toàn"],
+        answer: 1,
+        explain: "Chỉ cấp quyền và mở cổng tối thiểu cần thiết để phục vụ công việc.",
+        tip: "Mẹo nhớ: Least Privilege = Chỉ mở cái thực sự cần thiết."
+      },
+      {
+        id: "c3_17", chapter: "c3", chapterName: "Chương 3",
+        q: "Phân vùng mạng rõ ràng (network segmentation) giúp ích gì trong bảo mật?",
+        options: ["Tăng tốc độ mạng", "Cách ly các vùng có độ nhạy cảm khác nhau (trusted, DMZ, untrusted)", "Giảm chi phí", "Dễ quản lý hơn"],
+        answer: 1,
+        explain: "Cách ly các phân đoạn mạng, ngăn chặn tấn công lan rộng khắp công ty.",
+        tip: "Mẹo nhớ: Phân đoạn mạng = Cách ly các vùng an ninh khác nhau."
+      },
+      {
+        id: "c3_18", chapter: "c3", chapterName: "Chương 3",
+        q: "Nguyên tắc phòng thủ theo chiều sâu (Defense-in-Depth) khi thiết kế tường lửa là gì?",
+        options: ["Chỉ dùng một tường lửa mạnh", "Kết hợp nhiều lớp bảo mật (tường lửa + IDS/IPS, antivirus...)", "Đặt tường lửa ở nhiều vị trí giống nhau", "Dùng tường lửa phần mềm thay vì phần cứng"],
+        answer: 1,
+        explain: "Thiết lập nhiều lớp phòng vệ kế tiếp nhau; vượt qua lớp này còn lớp khác chặn lại.",
+        tip: "Mẹo nhớ: Phòng thủ chiều sâu = Phối hợp nhiều lớp bảo vệ."
+      },
+      {
+        id: "c3_19", chapter: "c3", chapterName: "Chương 3",
+        q: "Tường lửa có thể hỗ trợ chức năng nào để tiết kiệm địa chỉ IP?",
+        options: ["VPN", "NAT (Network Address Translation)", "Logging", "Behaviour Control"],
+        answer: 1,
+        explain: "NAT cho phép cả mạng LAN dùng chung một địa chỉ IP công cộng duy nhất.",
+        tip: "Mẹo nhớ: Tiết kiệm IP công cộng = NAT."
+      },
+      {
+        id: "c3_20", chapter: "c3", chapterName: "Chương 3",
+        q: "Chức năng ghi log (Logging & Monitoring) của tường lửa giúp gì?",
+        options: ["Tăng tốc xử lý", "Lưu lại nhật ký hoạt động để phân tích sự cố", "Mã hóa dữ liệu", "Lọc nội dung"],
+        answer: 1,
+        explain: "Lưu vết toàn bộ lưu lượng giúp điều tra và phân tích sự cố an ninh.",
+        tip: "Mẹo nhớ: Log = Nhật ký điều tra sự cố."
+      },
+      {
+        id: "c3_21", chapter: "c3", chapterName: "Chương 3",
+        q: "Loại tường lửa nào có thể xem xét toàn bộ bối cảnh của một kết nối (state of connection) chứ không chỉ từng gói riêng lẻ?",
+        options: ["Packet filter", "Circuit-level gateway", "Stateful inspection", "Application gateway"],
+        answer: 2,
+        explain: "Stateful Inspection theo dõi bảng trạng thái phiên kết nối của các gói tin.",
+        tip: "Mẹo nhớ: Bối cảnh trạng thái = Stateful Inspection."
+      },
+      {
+        id: "c3_22", chapter: "c3", chapterName: "Chương 3",
+        q: "Tường lửa cấp ứng dụng thường được triển khai dưới dạng nào?",
+        options: ["Proxy (proxy firewall)", "Chỉ là router", "Bridge trong suốt", "Virtual firewall"],
+        answer: 0,
+        explain: "Proxy đứng trung gian đại diện nhận và chuyển tiếp yêu cầu ứng dụng.",
+        tip: "Mẹo nhớ: Application Firewall = Proxy Firewall."
+      },
+      {
+        id: "c3_23", chapter: "c3", chapterName: "Chương 3",
+        q: "Một trong những sản phẩm tường lửa phần cứng được liệt kê là?",
+        options: ["IPCOP", "Fortinet FortiGate", "ISA Server", "Windows Firewall"],
+        answer: 1,
+        explain: "Fortinet FortiGate là dòng tường lửa phần cứng rất nổi tiếng.",
+        tip: "Mẹo nhớ: Fortinet FortiGate = Phần cứng."
+      },
+      {
+        id: "c3_24", chapter: "c3", chapterName: "Chương 3",
+        q: "Khi thiết kế tường lửa, việc lọc lưu lượng theo chính sách bảo mật đòi hỏi phải làm gì?",
+        options: ["Thiết lập các quy tắc (rules) cho phép hoặc chặn dựa trên chính sách tổ chức", "Tự động cho phép tất cả", "Chỉ chặn các cổng phổ biến", "Dùng mật khẩu mạnh"],
+        answer: 0,
+        explain: "Thiết lập tập luật (rule-set) kiểm soát chi tiết dựa trên chính sách an ninh của cơ quan.",
+        tip: "Mẹo nhớ: Thiết lập quy tắc (Rules) theo chính sách."
+      },
+      {
+        id: "c3_25", chapter: "c3", chapterName: "Chương 3",
+        q: "Tường lửa có thể hỗ trợ mạng riêng ảo (VPN) để làm gì?",
+        options: ["Tăng băng thông", "Kết nối an toàn giữa các mạng qua Internet", "Lọc gói hiệu quả hơn", "Giảm log"],
+        answer: 1,
+        explain: "VPN thiết lập đường hầm mã hóa bảo mật từ xa qua Internet.",
+        tip: "Mẹo nhớ: VPN = Đường hầm kết nối an toàn qua Internet."
+      },
+      {
+        id: "c3_26", chapter: "c3", chapterName: "Chương 3",
+        q: "Trong kiến trúc screened subnet, tường lửa thường có ít nhất mấy interface?",
+        options: ["1", "2", "3", "4"],
+        answer: 2,
+        explain: "Cần tối thiểu 3 cổng mạng: Inside (LAN), Outside (Internet), và DMZ.",
+        tip: "Mẹo nhớ: Screened subnet = Ít nhất 3 chân mạng."
+      },
+      {
+        id: "c3_27", chapter: "c3", chapterName: "Chương 3",
+        q: "Loại tường lửa nào có chi phí xử lý cao nhất, nhưng bảo mật mạnh nhất?",
+        options: ["Packet filter", "Circuit-level", "Application-level", "Tất cả như nhau"],
+        answer: 2,
+        explain: "Phân tích sâu tầng 7 nên tiêu tốn tài nguyên nhất nhưng độ an toàn cao nhất.",
+        tip: "Mẹo nhớ: Tốn tài nguyên nhất + An toàn nhất = Application-level."
+      },
+      {
+        id: "c3_28", chapter: "c3", chapterName: "Chương 3",
+        q: "Một doanh nghiệp muốn bảo vệ máy chủ web công khai nhưng không muốn lộ mạng nội bộ, nên chọn kiến trúc nào?",
+        options: ["Single firewall", "Screened subnet (DMZ)", "Screened host", "Không cần tường lửa"],
+        answer: 1,
+        explain: "Đặt máy chủ web vào vùng đệm DMZ để bảo vệ tuyệt đối cho LAN nội bộ.",
+        tip: "Mẹo nhớ: Web công cộng an toàn = Mô hình DMZ."
+      },
+      {
+        id: "c3_29", chapter: "c3", chapterName: "Chương 3",
+        q: "Tính năng nào của tường lửa giúp phát hiện sự kiện bất thường theo thời gian thực?",
+        options: ["NAT", "VPN", "Giám sát và phát hiện sự kiện an ninh mạng", "Service Control"],
+        answer: 2,
+        explain: "Giám sát luồng mạng liên tục để phát hiện kịp thời các sự kiện bất thường.",
+        tip: "Mẹo nhớ: Thời gian thực = Giám sát và phát hiện sự kiện an ninh."
+      },
+      {
+        id: "c3_30", chapter: "c3", chapterName: "Chương 3",
+        q: "Tường lửa lọc gói tin (packet filter) có thể kiểm tra thông tin nào trong gói IP?",
+        options: ["Nội dung HTML", "Địa chỉ IP nguồn/đích, cổng TCP/UDP", "Tên người dùng", "Mã nguồn trang web"],
+        answer: 1,
+        explain: "Chỉ kiểm tra IP nguồn/đích ở Layer 3 và Cổng TCP/UDP ở Layer 4.",
+        tip: "Mẹo nhớ: Packet Filter = IP nguồn/đích, Cổng TCP/UDP."
+      },
+      {
+        id: "c3_31", chapter: "c3", chapterName: "Chương 3",
+        q: "Trong thiết kế tường lửa, bastion host thường được dùng trong kiến trúc nào?",
+        options: ["Single firewall", "Screened host", "Multi-homed không DMZ", "Packet filter đơn thuần"],
+        answer: 1,
+        explain: "Bastion host gắn liền với mô hình Screened host hoặc Screened subnet.",
+        tip: "Mẹo nhớ: Bastion host gắn liền với Screened host."
+      },
+      {
+        id: "c3_32", chapter: "c3", chapterName: "Chương 3",
+        q: "Tường lửa cổng vòng (Circuit-level gateway) có ưu điểm gì về hiệu năng?",
+        options: ["Xử lý chậm do phân tích sâu", "Nhanh vì không cần kiểm tra nội dung", "Tiêu tốn nhiều bộ nhớ", "Chậm hơn application gateway"],
+        answer: 1,
+        explain: "Tốc độ xử lý rất nhanh vì sau khi bắt tay TCP xong thì cho qua mà không kiểm tra nội dung.",
+        tip: "Mẹo nhớ: Cổng mức mạch = Rất nhanh vì không kiểm tra payload."
+      },
+      {
+        id: "c3_34", chapter: "c3", chapterName: "Chương 3",
+        q: "Khi triển khai tường lửa, vị trí thích hợp thường là đâu?",
+        options: ["Trong mạng nội bộ", "Tại vùng biên (perimeter) giữa Internet và mạng nội bộ", "Trên từng máy trạm", "Trên switch lớp 2"],
+        answer: 1,
+        explain: "Đặt tại cửa ngõ biên (perimeter) để lọc toàn bộ luồng ra vào giữa các vùng mạng.",
+        tip: "Mẹo nhớ: Đặt tường lửa tại vùng biên (perimeter)."
+      },
+      {
+        id: "c3_35", chapter: "c3", chapterName: "Chương 3",
+        q: "Chức năng kiểm soát người dùng (User Control) của tường lửa dựa trên thông tin gì?",
+        options: ["Địa chỉ MAC", "Danh tính (xác thực, ví dụ tài khoản)", "Loại giao thức", "Kích thước gói"],
+        answer: 1,
+        explain: "Dựa trên danh tính tài khoản người dùng đã được đăng nhập và xác thực.",
+        tip: "Mẹo nhớ: User Control = Dựa trên danh tính xác thực."
+      },
+      {
+        id: "c3_36", chapter: "c3", chapterName: "Chương 3",
+        q: "Tường lửa lọc gói tin có thể bị tấn công kiểu nào do không theo dõi trạng thái?",
+        options: ["SQL injection", "IP spoofing hoặc packet fragmentation", "Buffer overflow", "Social engineering"],
+        answer: 1,
+        explain: "Do không theo dõi trạng thái nên dễ bị lừa bởi kỹ thuật IP spoofing hoặc chia nhỏ gói tin.",
+        tip: "Mẹo nhớ: Lọc gói không trạng thái dễ bị IP spoofing & phân mảnh gói."
+      },
+      {
+        id: "c3_37", chapter: "c3", chapterName: "Chương 3",
+        q: "Thiết kế tường lửa theo nguyên tắc phòng thủ theo chiều sâu yêu cầu bổ sung thêm gì?",
+        options: ["Chỉ một tường lửa", "Hệ thống IDS/IPS, antivirus, hoặc các lớp bảo mật khác", "Bỏ qua ghi log", "Chỉ dùng phần cứng"],
+        answer: 1,
+        explain: "Kết hợp đa tầng bảo vệ: Tường lửa + IDS/IPS + Phần mềm diệt virus.",
+        tip: "Mẹo nhớ: Phòng thủ chiều sâu = Phối hợp Firewall + IDS/IPS + Antivirus."
+      },
+      {
+        id: "c3_38", chapter: "c3", chapterName: "Chương 3",
+        q: "Phần mềm tường lửa mã nguồn mở phổ biến được nhắc đến trong bài tập là?",
+        options: ["Checkpoint", "PfSense", "Cisco ASA", "FortiGate"],
+        answer: 1,
+        explain: "pfSense là hệ điều hành tường lửa mã nguồn mở rất phổ biến.",
+        tip: "Mẹo nhớ: Tường lửa mã nguồn mở = PfSense."
+      },
+      {
+        id: "c3_39", chapter: "c3", chapterName: "Chương 3",
+        q: "Một ưu điểm của tường lửa cấp ứng dụng (Application-level) là gì?",
+        options: ["Không ảnh hưởng đến hiệu năng", "Có thể kiểm tra nội dung, phát hiện mã độc trong HTTP, SMTP...", "Dễ cấu hình", "Làm việc ở tầng mạng"],
+        answer: 1,
+        explain: "Hiểu giao thức ứng dụng nên lọc được mã độc ẩn trong lưu lượng web và mail.",
+        tip: "Mẹo nhớ: Tường lửa ứng dụng = Kiểm tra mã độc trong HTTP, SMTP."
+      },
+      {
+        id: "c3_40", chapter: "c3", chapterName: "Chương 3",
+        q: "Khi thiết lập quy tắc ACL trên tường lửa, nên áp dụng nguyên tắc gì?",
+        options: ["Mở tất cả cổng cho dễ", "Deny all, allow specific (chặn mặc định, chỉ cho phép những gì cần)", "Allow all, deny specific", "Chỉ chặn các cổng phổ biến"],
+        answer: 1,
+        explain: "Chặn toàn bộ theo mặc định (Deny all) và chỉ mở cụ thể những gì đã cấp phép.",
+        tip: "Mẹo nhớ: Quy tắc vàng ACL = Chặn mặc định, chỉ mở cái cần."
+      },
+
+      // CHƯƠNG 4
+      {
+        id: "c4_1", chapter: "c4", chapterName: "Chương 4",
+        q: "IDS (Intrusion Detection System) có chức năng chính là gì?",
+        options: ["Ngăn chặn tấn công tự động", "Giám sát, phát hiện và cảnh báo khi có dấu hiệu xâm nhập", "Mã hóa lưu lượng mạng", "Quản lý danh tính người dùng"],
+        answer: 1,
+        explain: "IDS là hệ thống giám sát thụ động: phát hiện dấu hiệu bất thường và gửi cảnh báo.",
+        tip: "Mẹo nhớ: IDS = Detection = Phát hiện và cảnh báo (thụ động)."
+      },
+      {
+        id: "c4_2", chapter: "c4", chapterName: "Chương 4",
+        q: "IPS (Intrusion Prevention System) khác IDS ở điểm nào?",
+        options: ["IPS chỉ hoạt động trên host", "IPS có thể tự động ngăn chặn tấn công ngay khi phát hiện", "IDS hoạt động inline", "IPS không có cảnh báo"],
+        answer: 1,
+        explain: "IPS là hệ thống chủ động: can thiệp trực tiếp để chặn gói tin độc hại trong thời gian thực.",
+        tip: "Mẹo nhớ: IPS = Prevention = Ngăn chặn chủ động."
+      },
+      {
+        id: "c4_3", chapter: "c4", chapterName: "Chương 4",
+        q: "Thành phần chính của IDS bao gồm?",
+        options: ["Firewall, Router, Switch", "Cảm biến (Sensors), Máy chủ phân tích (Analysis Engine), Hệ thống cảnh báo (Alerting)", "Antivirus, Anti-spyware, HIPS", "Proxy, NAT, VPN"],
+        answer: 1,
+        explain: "3 thành phần: Cảm biến (Sensor) -> Máy phân tích (Analysis Engine) -> Cảnh báo (Alerting).",
+        tip: "Mẹo nhớ: Cảm biến + Máy phân tích + Cảnh báo."
+      },
+      {
+        id: "c4_4", chapter: "c4", chapterName: "Chương 4",
+        q: "Loại IDS nào giám sát lưu lượng mạng (phân tích gói tin) thay vì hoạt động trên từng máy?",
+        options: ["Host-based IDS (HIDS)", "Network-based IDS (NIDS)", "Wireless IDS", "Cloud IDS"],
+        answer: 1,
+        explain: "NIDS đặt trên các phân đoạn mạng để giám sát toàn bộ luồng lưu lượng chung.",
+        tip: "Mẹo nhớ: Giám sát toàn mạng = NIDS (Network-based)."
+      },
+      {
+        id: "c4_5", chapter: "c4", chapterName: "Chương 4",
+        q: "Host-based IDS (HIDS) có đặc điểm gì?",
+        options: ["Giám sát lưu lượng mạng", "Giám sát hoạt động trên máy chủ hoặc máy trạm (log, file, tiến trình)", "Chạy trên switch", "Chỉ phát hiện tấn công mạng không dây"],
+        answer: 1,
+        explain: "HIDS cài đặt trực tiếp trên từng máy tính, giám sát log, file hệ thống và tiến trình.",
+        tip: "Mẹo nhớ: Cài trên từng máy = HIDS (Host-based)."
+      },
+      {
+        id: "c4_6", chapter: "c4", chapterName: "Chương 4",
+        q: "Một nhược điểm của IDS là gì?",
+        options: ["Không thể cảnh báo", "Không ngăn chặn trực tiếp, dễ bị quá tải dữ liệu", "Quá đắt", "Chỉ hoạt động với IPv6"],
+        answer: 1,
+        explain: "IDS thụ động không tự chặn được và dễ bị drop gói khi mạng quá tải dữ liệu.",
+        tip: "Mẹo nhớ: Nhược điểm IDS = Không ngăn chặn trực tiếp, dễ quá tải."
+      },
+      {
+        id: "c4_7", chapter: "c4", chapterName: "Chương 4",
+        q: "IPS thường được triển khai theo cơ chế nào để có thể chặn gói tin?",
+        options: ["Passive (sao chép lưu lượng)", "Inline (trực tiếp trên luồng dữ liệu)", "Offline", "Hỗn hợp"],
+        answer: 1,
+        explain: "Triển khai Inline (nối tiếp trên đường truyền) để kiểm soát và hủy gói tin độc hại kịp thời.",
+        tip: "Mẹo nhớ: Để chặn được thì phải đứng nối tiếp = Inline."
+      },
+      {
+        id: "c4_8", chapter: "c4", chapterName: "Chương 4",
+        q: "Loại IPS nào chuyên bảo vệ mạng không dây?",
+        options: ["NIPS", "HIPS", "WIPS (Wireless IPS)", "Cloud IPS"],
+        answer: 2,
+        explain: "WIPS chuyên ngăn chặn các mối đe dọa sóng vô tuyến WiFi.",
+        tip: "Mẹo nhớ: Bảo vệ mạng không dây = WIPS."
+      },
+      {
+        id: "c4_9", chapter: "c4", chapterName: "Chương 4",
+        q: "Rủi ro chính khi sử dụng IPS là gì?",
+        options: ["Không phát hiện được tấn công", "Gây trễ mạng và có thể chặn nhầm (False Positive)", "Quá mềm dẻo", "Không hỗ trợ IPv4"],
+        answer: 1,
+        explain: "IPS làm tăng độ trễ và có nguy cơ chặn nhầm gói tin hợp lệ (False Positive).",
+        tip: "Mẹo nhớ: Rủi ro IPS = Gây trễ mạng & Chặn nhầm (False Positive)."
+      },
+      {
+        id: "c4_10", chapter: "c4", chapterName: "Chương 4",
+        q: "Phương pháp phát hiện dựa trên chữ ký (Signature-based) hoạt động thế nào?",
+        options: ["Học hành vi bình thường rồi phát hiện bất thường", "So khớp lưu lượng với các mẫu tấn công đã biết", "Sử dụng trí tuệ nhân tạo không cần dữ liệu", "Dựa trên vị trí địa lý"],
+        answer: 1,
+        explain: "So khớp chuỗi byte với cơ sở dữ liệu mẫu chữ ký tấn công đã biết trước.",
+        tip: "Mẹo nhớ: Chữ ký = So khớp mẫu đã biết."
+      },
+      {
+        id: "c4_11", chapter: "c4", chapterName: "Chương 4",
+        q: "Phương pháp phát hiện dựa trên bất thường (Anomaly-based) có ưu điểm gì?",
+        options: ["Không cần huấn luyện", "Có thể phát hiện tấn công mới chưa có chữ ký", "Tỷ lệ false positive rất thấp", "Dễ cài đặt"],
+        answer: 1,
+        explain: "Phát hiện sự sai lệch so với mô hình bình thường nên bắt được tấn công Zero-day mới.",
+        tip: "Mẹo nhớ: Anomaly-based = Phát hiện tấn công mới chưa có chữ ký."
+      },
+      {
+        id: "c4_12", chapter: "c4", chapterName: "Chương 4",
+        q: "Thuật toán học máy nào có thể được dùng trong IDS/IPS?",
+        options: ["KNN, SVM, Decision Tree, Random Forest", "Chỉ có Deep Learning", "Chỉ có K-means", "Không áp dụng được"],
+        answer: 0,
+        explain: "Áp dụng đa dạng các giải thuật Machine Learning như KNN, SVM, Cây quyết định, Random Forest.",
+        tip: "Mẹo nhớ: ML trong bảo mật = KNN, SVM, Decision Tree, Random Forest."
+      },
+      {
+        id: "c4_13", chapter: "c4", chapterName: "Chương 4",
+        q: "Quy trình áp dụng máy học trong IDS/IPS thường bắt đầu bằng bước nào?",
+        options: ["Dự đoán và phản ứng", "Thu thập dữ liệu", "Trích xuất đặc trưng", "Huấn luyện mô hình"],
+        answer: 1,
+        explain: "Bước đầu tiên của mọi mô hình học máy là thu thập bộ dữ liệu (dataset).",
+        tip: "Mẹo nhớ: Bước đầu tiên của Machine Learning = Thu thập dữ liệu."
+      },
+      {
+        id: "c4_14", chapter: "c4", chapterName: "Chương 4",
+        q: "Mô hình IDS/IPS nào phù hợp với mạng nhỏ, hoạt động độc lập?",
+        options: ["Distributed IDS/IPS", "Standalone IDS/IPS", "Cloud-based IDS/IPS", "Hybrid IDS/IPS"],
+        answer: 1,
+        explain: "Standalone IDPS gom toàn bộ trên một thiết bị, phù hợp mạng nhỏ.",
+        tip: "Mẹo nhớ: Mạng nhỏ độc lập = Standalone IDPS."
+      },
+      {
+        id: "c4_15", chapter: "c4", chapterName: "Chương 4",
+        q: "Distributed IDS/IPS có đặc điểm gì?",
+        options: ["Chỉ có một cảm biến", "Nhiều cảm biến phân tán, dữ liệu tập trung phân tích", "Không kết nối mạng", "Chạy trên cloud"],
+        answer: 1,
+        explain: "Cảm biến đặt phân tán ở nhiều điểm, gom dữ liệu về máy chủ trung tâm phân tích.",
+        tip: "Mẹo nhớ: Distributed = Cảm biến phân tán, phân tích tập trung."
+      },
+      {
+        id: "c4_17", chapter: "c4", chapterName: "Chương 4",
+        q: "Cloud-based IDS/IPS mang lại lợi ích gì nổi bật?",
+        options: ["Chi phí phần cứng cao", "Linh hoạt, dễ mở rộng, không cần quản lý hạ tầng vật lý", "Chậm hơn on-premise", "Chỉ bảo vệ cloud"],
+        answer: 1,
+        explain: "Dễ mở rộng theo nhu cầu, tiết kiệm chi phí đầu tư phần cứng vật lý tại chỗ.",
+        tip: "Mẹo nhớ: Cloud = Dễ mở rộng linh hoạt, không tốn hạ tầng vật lý."
+      },
+      {
+        id: "c4_18", chapter: "c4", chapterName: "Chương 4",
+        q: "Mô hình tích hợp IDS/IPS với NGFW (Next-Generation Firewall) có tác dụng gì?",
+        options: ["Thay thế hoàn toàn tường lửa", "Kết hợp khả năng lọc gói, phát hiện và ngăn chặn xâm nhập thành một thiết bị thống nhất", "Giảm bảo mật", "Chỉ dùng cho mạng không dây"],
+        answer: 1,
+        explain: "Hợp nhất tính năng lọc tường lửa và IPS vào cùng một thiết bị phần cứng thống nhất.",
+        tip: "Mẹo nhớ: NGFW = Hợp nhất Tường lửa + IPS."
+      },
+      {
+        id: "c4_19", chapter: "c4", chapterName: "Chương 4",
+        q: "Kiến trúc Inline Network-Based IDPS Sensor hoạt động như thế nào?",
+        options: ["Sao chép lưu lượng qua cổng span", "Đặt trực tiếp trên đường truyền, chặn gói tin độc hại", "Chỉ phân tích offline", "Không thể chặn"],
+        answer: 1,
+        explain: "Đặt trực tiếp trên cáp đường truyền mạng, có khả năng chặn đứng gói tin độc hại.",
+        tip: "Mẹo nhớ: Inline Sensor = Đặt thẳng trên đường truyền để chặn."
+      },
+      {
+        id: "c4_21", chapter: "c4", chapterName: "Chương 4",
+        q: "Wireless IDPS (WIPS) có khả năng đặc biệt nào?",
+        options: ["Phát hiện và ngăn chặn các mối đe dọa trên mạng WiFi như rogue AP, deauth attack", "Chỉ bảo vệ có dây", "Mã hóa sóng vô tuyến", "Tăng tốc độ WiFi"],
+        answer: 0,
+        explain: "Giám sát sóng vô tuyến để ngăn chặn điểm truy cập giả (Rogue AP) và tấn công Deauth.",
+        tip: "Mẹo nhớ: WIPS = Chống Rogue AP & Deauth Attack trên WiFi."
+      },
+      {
+        id: "c4_22", chapter: "c4", chapterName: "Chương 4",
+        q: "Host-based IDPS (HIPS) thường được cài đặt ở đâu?",
+        options: ["Trên switch core", "Trên từng máy chủ hoặc máy trạm", "Trên router biên", "Trên firewall"],
+        answer: 1,
+        explain: "Được cài như phần mềm bảo vệ trên hệ điều hành của từng endpoint hoặc server.",
+        tip: "Mẹo nhớ: HIPS = Cài trên từng máy chủ hoặc máy trạm."
+      },
+      {
+        id: "c4_23", chapter: "c4", chapterName: "Chương 4",
+        q: "Một trong những ưu điểm chính của IDS là gì?",
+        options: ["Cung cấp thông tin chi tiết về tấn công và phát hiện sớm", "Ngăn chặn mọi tấn công", "Không gây false positive", "Không cần cập nhật"],
+        answer: 0,
+        explain: "Phát hiện sớm và lưu vết thông tin chi tiết để phục vụ điều tra sự cố.",
+        tip: "Mẹo nhớ: Ưu điểm IDS = Phát hiện sớm & Cung cấp chi tiết tấn công."
+      },
+      {
+        id: "c4_24", chapter: "c4", chapterName: "Chương 4",
+        q: "Nhược điểm của phương pháp phát hiện dựa trên chữ ký (signature) là gì?",
+        options: ["Tỷ lệ false positive cao", "Không thể phát hiện tấn công zero-day (chưa có chữ ký)", "Tiêu tốn nhiều CPU", "Khó cập nhật"],
+        answer: 1,
+        explain: "Chỉ nhận diện được cái đã biết, bất lực hoàn toàn trước các lỗ hổng Zero-day.",
+        tip: "Mẹo nhớ: Nhược điểm Signature = Không phát hiện được Zero-day."
+      },
+      {
+        id: "c4_25", chapter: "c4", chapterName: "Chương 4",
+        q: "Phương pháp anomaly-based thường có hạn chế nào?",
+        options: ["Chỉ hoạt động với TCP", "Tỷ lệ cảnh báo giả (false positive) cao do hành vi bình thường thay đổi", "Không thể học mô hình", "Không phát hiện tấn công mới"],
+        answer: 1,
+        explain: "Khi hành vi người dùng đổi khác một chút thì rất dễ bị cảnh báo nhầm (False Positive).",
+        tip: "Mẹo nhớ: Nhược điểm Anomaly = Tỷ lệ cảnh báo giả cao (False Positive)."
+      },
+      {
+        id: "c4_26", chapter: "c4", chapterName: "Chương 4",
+        q: "Thành phần nào trong IDS chịu trách nhiệm phân tích dữ liệu và quyết định có tấn công hay không?",
+        options: ["Sensor", "Analysis Engine", "Alerting System", "Console"],
+        answer: 1,
+        explain: "Analysis Engine (Bộ máy phân tích) là nơi xử lý dữ liệu và so khớp luật.",
+        tip: "Mẹo nhớ: Quyết định có tấn công hay không = Analysis Engine."
+      },
+      {
+        id: "c4_27", chapter: "c4", chapterName: "Chương 4",
+        q: "Nếu một tổ chức muốn vừa phát hiện vừa ngăn chặn tấn công ở quy mô mạng lớn, lựa chọn nào phù hợp nhất?",
+        options: ["HIDS", "NIPS (Network-based IPS)", "Standalone IDS", "Signature-based IDS"],
+        answer: 1,
+        explain: "NIPS bảo vệ diện rộng trên toàn mạng và có khả năng chủ động ngăn chặn tấn công.",
+        tip: "Mẹo nhớ: Mạng lớn + Chặn chủ động = NIPS."
+      },
+      {
+        id: "c4_28", chapter: "c4", chapterName: "Chương 4",
+        q: "Snort và Suricata được nhắc đến trong bài tập là công cụ gì?",
+        options: ["Tường lửa", "Hệ thống phát hiện/phòng chống xâm nhập mã nguồn mở", "Quét lỗ hổng", "Mã hóa"],
+        answer: 1,
+        explain: "Snort và Suricata là hai giải pháp IDS/IPS mã nguồn mở nổi tiếng nhất.",
+        tip: "Mẹo nhớ: Snort & Suricata = Hệ thống IDS/IPS mã nguồn mở."
+      },
+      {
+        id: "c4_29", chapter: "c4", chapterName: "Chương 4",
+        q: "Để IDS/IPS hoạt động hiệu quả với lưu lượng mã hóa (HTTPS), giải pháp thường là?",
+        options: ["Vẫn có thể kiểm tra nội dung nhờ giải mã (SSL inspection)", "Không thể xử lý", "Chỉ dùng HIDS", "Dùng packet filter thay thế"],
+        answer: 0,
+        explain: "Dùng kỹ thuật giải mã trung gian SSL/TLS Inspection để kiểm tra nội dung gói tin.",
+        tip: "Mẹo nhớ: Soi lưu lượng HTTPS = SSL inspection."
+      },
+      {
+        id: "c4_30", chapter: "c4", chapterName: "Chương 4",
+        q: "Việc cập nhật tập luật (signature) thường xuyên cho IDS/IPS nhằm mục đích gì?",
+        options: ["Tăng tốc xử lý", "Phát hiện được các mối đe dọa mới nhất", "Giảm false positive", "Tiết kiệm bộ nhớ"],
+        answer: 1,
+        explain: "Cập nhật các mẫu nhận dạng mới để bắt kịp các lỗ hổng và mã độc mới xuất hiện.",
+        tip: "Mẹo nhớ: Cập nhật luật = Bắt được các mối đe dọa mới nhất."
+      },
+
+      // CHƯƠNG 5
+      {
+        id: "c5_1", chapter: "c5", chapterName: "Chương 5",
+        q: "WLAN là viết tắt của?",
+        options: ["Wireless Local Area Network", "Wide Local Area Network", "Wired Local Area Network", "Wireless Long Area Network"],
+        answer: 0,
+        explain: "WLAN (Wireless Local Area Network) là mạng cục bộ không dây.",
+        tip: "Mẹo nhớ: Wireless Local Area Network."
+      },
+      {
+        id: "c5_2", chapter: "c5", chapterName: "Chương 5",
+        q: "Chuẩn IEEE nào quy định về bảo mật trong WLAN?",
+        options: ["IEEE 802.11a", "IEEE 802.11i", "IEEE 802.11b", "IEEE 802.11g"],
+        answer: 1,
+        explain: "IEEE 802.11i đặc tả kiến trúc bảo mật mở rộng cho WLAN (chuẩn WPA2).",
+        tip: "Mẹo nhớ: Bảo mật WLAN = 802.11i."
+      },
+      {
+        id: "c5_3", chapter: "c5", chapterName: "Chương 5",
+        q: "Kỹ thuật trải phổ tuần tự trực tiếp (DSSS) trong WLAN có đặc điểm gì?",
+        options: ["Truyền dữ liệu trên một tần số cố định", "Trải dữ liệu trên nhiều tần số đồng thời để giảm nhiễu", "Chỉ dùng cho tần số 5 GHz", "Không hỗ trợ WLAN"],
+        answer: 1,
+        explain: "DSSS phân tán dữ liệu trên băng thông rộng để chống nhiễu.",
+        tip: "Mẹo nhớ: DSSS = Trải phổ trên nhiều tần số đồng thời để giảm nhiễu."
+      },
+      {
+        id: "c5_4", chapter: "c5", chapterName: "Chương 5",
+        q: "Giao thức điều khiển truy cập phương tiện (MAC) của WLAN là gì?",
+        options: ["CSMA/CD", "CSMA/CA (Carrier Sense Multiple Access with Collision Avoidance)", "Token Ring", "ALOHA"],
+        answer: 1,
+        explain: "Mạng WiFi dùng CSMA/CA (Tránh xung đột) vì sóng không thể vừa phát vừa nghe xung đột.",
+        tip: "Mẹo nhớ: WiFi dùng CSMA/CA (Tránh va chạm Collision Avoidance)."
+      },
+      {
+        id: "c5_5", chapter: "c5", chapterName: "Chương 5",
+        q: "Cơ chế RTS/CTS trong WLAN dùng để làm gì?",
+        options: ["Mã hóa dữ liệu", "Giảm thiểu va chạm ẩn (hidden node problem)", "Xác thực người dùng", "Tăng tốc độ truyền"],
+        answer: 1,
+        explain: "RTS/CTS báo trước kênh bận để giải quyết bài toán nút ẩn (hidden node).",
+        tip: "Mẹo nhớ: RTS/CTS = Giảm thiểu va chạm nút ẩn."
+      },
+      {
+        id: "c5_6", chapter: "c5", chapterName: "Chương 5",
+        q: "Thành phần nào trong WLAN đóng vai trò kết nối mạng có dây với không dây?",
+        options: ["Mobile Station (MS)", "Access Point (AP)", "Switch", "Router"],
+        answer: 1,
+        explain: "Access Point (AP) là cầu nối giữa mạng có dây Ethernet và các thiết bị không dây.",
+        tip: "Mẹo nhớ: Cầu nối không dây và có dây = AP (Access Point)."
+      },
+      {
+        id: "c5_7", chapter: "c5", chapterName: "Chương 5",
+        q: "Mô hình WLAN nào kết nối trực tiếp giữa các thiết bị mà không cần AP?",
+        options: ["BSS (Basic Service Set)", "ESS (Extended Service Set)", "Ad-hoc", "Infrastructure"],
+        answer: 2,
+        explain: "Mô hình Ad-hoc kết nối ngang hàng trực tiếp giữa các máy trạm không cần AP.",
+        tip: "Mẹo nhớ: Kết nối trực tiếp không qua AP = Ad-hoc."
+      },
+      {
+        id: "c5_8", chapter: "c5", chapterName: "Chương 5",
+        q: "Nguy cơ bảo mật nào xảy ra khi kẻ tấn công đặt một AP giả mạo cùng SSID với mạng thật?",
+        options: ["Jamming", "Rogue AP (điểm truy cập giả mạo)", "Deauthentication", "Disassociation"],
+        answer: 1,
+        explain: "Rogue AP là điểm phát giả mạo tên sóng SSID để lừa người dùng kết nối.",
+        tip: "Mẹo nhớ: AP giả mạo cùng tên SSID = Rogue AP."
+      },
+      {
+        id: "c5_9", chapter: "c5", chapterName: "Chương 5",
+        q: "Tấn công chèn sóng (jamming) trong WLAN nhằm mục đích gì?",
+        options: ["Đánh cắp mật khẩu", "Gây nhiễu, làm tê liệt kết nối bằng tín hiệu cùng tần số công suất lớn", "Giả mạo AP", "Thu thập gói tin"],
+        answer: 1,
+        explain: "Phá sóng vô tuyến bằng tín hiệu công suất lớn để gây tê liệt kết nối (DoS tầng vật lý).",
+        tip: "Mẹo nhớ: Jamming = Chèn sóng gây nhiễu tê liệt kết nối."
+      },
+      {
+        id: "c5_10", chapter: "c5", chapterName: "Chương 5",
+        q: "Gói tin deauthentication frame được gửi giả mạo để làm gì?",
+        options: ["Mã hóa lại dữ liệu", "Ngắt kết nối giữa máy trạm và AP, buộc xác thực lại", "Cập nhật firmware", "Thay đổi SSID"],
+        answer: 1,
+        explain: "Ép máy trạm ngắt kết nối để khi kết nối lại kẻ xấu bắt gói 4-way handshake giải mã mật khẩu.",
+        tip: "Mẹo nhớ: Deauth frame = Ngắt kết nối để ép xác thực lại."
+      },
+      {
+        id: "c5_11", chapter: "c5", chapterName: "Chương 5",
+        q: "Evil Twin là gì trong bảo mật WLAN?",
+        options: ["Một loại mã độc", "Một AP giả mạo có SSID giống hệt mạng hợp pháp (thường là mạng công cộng)", "Một kỹ thuật mã hóa", "Một giao thức xác thực"],
+        answer: 1,
+        explain: "Evil Twin là AP sinh đôi giả mạo hoàn toàn mạng hợp pháp để lừa lấy mật khẩu/thông tin cá nhân.",
+        tip: "Mẹo nhớ: Evil Twin = Cặp song sinh ác quỷ giả mạo AP thật."
+      },
+      {
+        id: "c5_12", chapter: "c5", chapterName: "Chương 5",
+        q: "Giao thức bảo mật đầu tiên cho WLAN là gì?",
+        options: ["WPA2", "WPA3", "WEP (Wired Equivalent Privacy)", "802.1X"],
+        answer: 2,
+        explain: "WEP ra đời năm 1997 là giao thức bảo mật không dây cổ điển đầu tiên.",
+        tip: "Mẹo nhớ: Giao thức đầu tiên cổ nhất = WEP."
+      },
+      {
+        id: "c5_13", chapter: "c5", chapterName: "Chương 5",
+        q: "WEP sử dụng thuật toán mã hóa nào?",
+        options: ["AES", "RC4", "DES", "3DES"],
+        answer: 1,
+        explain: "WEP dùng thuật toán mã hóa dòng RC4 kết hợp với IV 24-bit.",
+        tip: "Mẹo nhớ: WEP dùng mã hóa RC4."
+      },
+      {
+        id: "c5_14", chapter: "c5", chapterName: "Chương 5",
+        q: "Điểm yếu chính của WEP là gì?",
+        options: ["Mã hóa quá mạnh", "IV (24 bit) ngắn và tái sử dụng, dễ bị phá trong vài phút", "Không hỗ trợ xác thực", "Chạy chậm"],
+        answer: 1,
+        explain: "Không gian IV 24-bit quá ngắn khiến khóa bị lặp lại, dễ bị bẻ khóa trong vài phút.",
+        tip: "Mẹo nhớ: WEP yếu vì IV ngắn (24 bit) và bị tái sử dụng."
+      },
+      {
+        id: "c5_15", chapter: "c5", chapterName: "Chương 5",
+        q: "WPA (Wi-Fi Protected Access) được tạo ra để khắc phục nhược điểm của WEP bằng cách sử dụng?",
+        options: ["AES-CCMP", "TKIP (Temporal Key Integrity Protocol)", "SAE", "RC6"],
+        answer: 1,
+        explain: "WPA dùng giao thức đổi khóa động TKIP để nâng cấp tạm thời cho phần cứng cũ.",
+        tip: "Mẹo nhớ: WPA gắn liền với TKIP."
+      },
+      {
+        id: "c5_16", chapter: "c5", chapterName: "Chương 5",
+        q: "Giao thức mã hóa được sử dụng trong WPA2 là gì?",
+        options: ["RC4", "TKIP", "AES-CCMP", "WEP"],
+        answer: 2,
+        explain: "WPA2 thay thế hoàn toàn RC4 bằng thuật toán mã hóa khối cấp cao AES-CCMP.",
+        tip: "Mẹo nhớ: WPA2 = Mã hóa khối AES-CCMP."
+      },
+      {
+        id: "c5_17", chapter: "c5", chapterName: "Chương 5",
+        q: "WPA2 có hai chế độ hoạt động chính là?",
+        options: ["Personal và Enterprise", "Home và Office", "Personal (PSK) và Enterprise (802.1X/EAP)", "Low và High"],
+        answer: 2,
+        explain: "WPA2-Personal dùng mật khẩu chia sẻ (PSK); WPA2-Enterprise dùng máy chủ RADIUS và 802.1X.",
+        tip: "Mẹo nhớ: Personal (PSK) và Enterprise (802.1X/EAP)."
+      },
+      {
+        id: "c5_18", chapter: "c5", chapterName: "Chương 5",
+        q: "Điểm yếu của WPA2-PSK là gì?",
+        options: ["Mã hóa yếu", "Dễ bị tấn công brute-force nếu mật khẩu yếu", "Không hỗ trợ IPv6", "Không tương thích với thiết bị cũ"],
+        answer: 1,
+        explain: "Chỉ cần bắt được 4-way handshake là có thể mang về máy dò từ điển offline.",
+        tip: "Mẹo nhớ: WPA2-PSK dễ dính Brute-force/Từ điển nếu đặt pass ngắn."
+      },
+      {
+        id: "c5_19", chapter: "c5", chapterName: "Chương 5",
+        q: "WPA3 giới thiệu cơ chế xác thực mới nào để chống tấn công từ điển offline?",
+        options: ["PSK", "TKIP", "SAE (Simultaneous Authentication of Equals)", "WEP"],
+        answer: 2,
+        explain: "WPA3 dùng SAE (Dragonfly) bắt buộc trao đổi trực tiếp, vô hiệu hóa tấn công từ điển offline.",
+        tip: "Mẹo nhớ: WPA3 dùng cơ chế SAE (thay cho PSK)."
+      },
+      {
+        id: "c5_20", chapter: "c5", chapterName: "Chương 5",
+        q: "Tính năng Forward Secrecy trong WPA3 có tác dụng gì?",
+        options: ["Tăng tốc độ truyền", "Bảo vệ dữ liệu đã truyền trước đó ngay cả khi mật khẩu bị lộ sau này", "Giảm chi phí", "Hỗ trợ thêm nhiều client"],
+        answer: 1,
+        explain: "Mỗi phiên có khóa độc lập; lộ mật khẩu trong tương lai vẫn không giải mã được dữ liệu quá khứ.",
+        tip: "Mẹo nhớ: Forward Secrecy = Mật khẩu có lộ sau này thì dữ liệu cũ vẫn an toàn."
+      },
+      {
+        id: "c5_21", chapter: "c5", chapterName: "Chương 5",
+        q: "WPA3-Enterprise sử dụng mã hóa mạnh bao nhiêu bit?",
+        options: ["64 bit", "128 bit", "192 bit", "256 bit"],
+        answer: 2,
+        explain: "WPA3-Enterprise hỗ trợ chế độ mã hóa cấp độ chính phủ 192-bit.",
+        tip: "Mẹo nhớ: WPA3 Enterprise = 192 bit."
+      },
+      {
+        id: "c5_22", chapter: "c5", chapterName: "Chương 5",
+        q: "Wi-Fi Enhanced Open trong WPA3 cung cấp tính năng gì cho mạng công cộng không mật khẩu?",
+        options: ["Mã hóa dữ liệu mỗi phiên (Opportunistic Wireless Encryption - OWE)", "Xác thực mạnh", "Lọc MAC", "Chống jamming"],
+        answer: 0,
+        explain: "Tự động mã hóa luồng không dây riêng biệt OWE cho từng máy mà không cần nhập mật khẩu.",
+        tip: "Mẹo nhớ: Enhanced Open = Mã hóa luồng tự động OWE."
+      },
+      {
+        id: "c5_23", chapter: "c5", chapterName: "Chương 5",
+        q: "Công cụ nào thường được dùng để tấn công WEP, WPA2-PSK?",
+        options: ["Snort", "Aircrack-ng", "Wireshark", "Nmap"],
+        answer: 1,
+        explain: "Aircrack-ng là bộ công cụ nổi tiếng nhất để bẻ khóa WEP và WPA2-PSK.",
+        tip: "Mẹo nhớ: Bẻ khóa WiFi = Aircrack-ng."
+      },
+      {
+        id: "c5_24", chapter: "c5", chapterName: "Chương 5",
+        q: "Biện pháp nào giúp phát hiện Rogue AP trong WLAN?",
+        options: ["Dùng mật khẩu mạnh", "Triển khai WIPS (Wireless Intrusion Prevention System)", "Tắt SSID broadcast", "Dùng WPA3"],
+        answer: 1,
+        explain: "WIPS liên tục quét dải tần vô tuyến để phát hiện và cô lập các Rogue AP lạ.",
+        tip: "Mẹo nhớ: Phát hiện Rogue AP = Triển khai WIPS."
+      },
+      {
+        id: "c5_25", chapter: "c5", chapterName: "Chương 5",
+        q: "Protected Management Frames (PMF) được giới thiệu từ chuẩn nào?",
+        options: ["WEP", "WPA2 (tùy chọn) và bắt buộc trong WPA3", "WPA", "802.11b"],
+        answer: 1,
+        explain: "PMF (802.11w) là tùy chọn trong WPA2 và trở thành bắt buộc trong WPA3.",
+        tip: "Mẹo nhớ: PMF = Tùy chọn ở WPA2, bắt buộc ở WPA3."
+      },
+      {
+        id: "c5_26", chapter: "c5", chapterName: "Chương 5",
+        q: "Để tăng cường bảo mật cho mạng WLAN doanh nghiệp, nên sử dụng?",
+        options: ["WPA2-PSK với mật khẩu dài", "WPA2/WPA3-Enterprise với máy chủ RADIUS và 802.1X", "Ẩn SSID", "Lọc địa chỉ MAC"],
+        answer: 1,
+        explain: "Xác thực danh tính độc lập từng người dùng bằng máy chủ RADIUS và hạ tầng 802.1X.",
+        tip: "Mẹo nhớ: Chuẩn doanh nghiệp = WPA Enterprise + RADIUS Server."
+      },
+      {
+        id: "c5_27", chapter: "c5", chapterName: "Chương 5",
+        q: "Lọc địa chỉ MAC (MAC filtering) trên AP có thể bị vượt qua bằng cách nào?",
+        options: ["Tấn công jamming", "Giả mạo địa chỉ MAC (MAC spoofing)", "Phá mã WEP", "Tấn công từ điển"],
+        answer: 1,
+        explain: "Địa chỉ MAC gửi dưới dạng văn bản rõ không mã hóa, dễ dàng bị sao chép bằng MAC spoofing.",
+        tip: "Mẹo nhớ: Vượt bộ lọc MAC bằng MAC Spoofing."
+      },
+      {
+        id: "c5_28", chapter: "c5", chapterName: "Chương 5",
+        q: "Chuẩn IEEE 802.1X trong WLAN liên quan đến vấn đề gì?",
+        options: ["Tốc độ truyền", "Điều khiển truy cập mạng (xác thực dựa trên cổng)", "Mã hóa dữ liệu", "Quản lý phổ tần"],
+        answer: 1,
+        explain: "802.1X là cơ chế kiểm soát truy cập và xác thực danh tính dựa trên cổng mạng.",
+        tip: "Mẹo nhớ: 802.1X = Xác thực truy cập cổng mạng."
+      },
+      {
+        id: "c5_29", chapter: "c5", chapterName: "Chương 5",
+        q: "Máy chủ RADIUS trong WLAN doanh nghiệp có vai trò gì?",
+        options: ["Cấp phát địa chỉ IP", "Xác thực và cấp quyền cho người dùng", "Mã hóa lưu lượng", "Chặn gói tin"],
+        answer: 1,
+        explain: "Máy chủ trung tâm làm nhiệm vụ xác minh danh tính và cấp quyền truy cập tài nguyên.",
+        tip: "Mẹo nhớ: RADIUS = Xác thực và cấp quyền người dùng."
+      },
+      {
+        id: "c5_30", chapter: "c5", chapterName: "Chương 5",
+        q: "Tấn công Disassociation trong WLAN khác Deauthentication ở điểm nào?",
+        options: ["Disassociation dùng frame quản lý gửi đến AP hoặc client để ngắt kết nối, thường hợp pháp", "Deauth dùng mật khẩu", "Không khác", "Disassociation mạnh hơn"],
+        answer: 0,
+        explain: "Disassociation gửi frame quản lý hủy bỏ liên kết phiên truyền thông.",
+        tip: "Mẹo nhớ: Disassociation = Hủy liên kết phiên."
+      },
+      {
+        id: "c5_32", chapter: "c5", chapterName: "Chương 5",
+        q: "WPA3 bắt buộc sử dụng tính năng gì để bảo vệ các frame quản lý?",
+        options: ["TKIP", "PMF (Protected Management Frames)", "WEP", "IV dài hơn"],
+        answer: 1,
+        explain: "WPA3 bắt buộc PMF để chống lại các đòn deauth/disassociation attack giả mạo.",
+        tip: "Mẹo nhớ: Bảo vệ frame quản lý trong WPA3 = Bắt buộc PMF."
+      },
+      {
+        id: "c5_33", chapter: "c5", chapterName: "Chương 5",
+        q: "Khi triển khai WLAN công cộng (ví dụ quán cà phê), biện pháp an toàn cho người dùng là?",
+        options: ["Tin tưởng AP mặc định", "Sử dụng VPN để mã hóa toàn bộ lưu lượng", "Bật chia sẻ file", "Tắt tường lửa"],
+        answer: 1,
+        explain: "Bật VPN để tạo đường hầm mã hóa dữ liệu độc lập bảo vệ khỏi nghe lén.",
+        tip: "Mẹo nhớ: Dùng WiFi nơi công cộng = Bật VPN."
+      },
+      {
+        id: "c5_34", chapter: "c5", chapterName: "Chương 5",
+        q: "Phân tách VLAN cho khách và mạng nội bộ trên WLAN có tác dụng gì?",
+        options: ["Tăng tốc độ mạng", "Cách ly lưu lượng khách không thể truy cập vào mạng nội bộ", "Tiết kiệm địa chỉ IP", "Dễ quản lý hơn"],
+        answer: 1,
+        explain: "Cách ly khách vào Internet riêng, chặn hoàn toàn truy cập vào mạng nội bộ công ty.",
+        tip: "Mẹo nhớ: VLAN khách = Cách ly khỏi mạng nội bộ."
+      },
+      {
+        id: "c5_35", chapter: "c5", chapterName: "Chương 5",
+        q: "Cấu hình AP với công suất phát hợp lý giúp tăng bảo mật như thế nào?",
+        options: ["Tăng vùng phủ", "Giới hạn phạm vi tín hiệu, khó bị nghe lén từ xa", "Tiết kiệm điện", "Giảm nhiễu"],
+        answer: 1,
+        explain: "Giới hạn vùng phủ sóng trong phòng, hạn chế sóng tràn ra ngoài bãi xe hay ngoài đường.",
+        tip: "Mẹo nhớ: Giới hạn phạm vi phát sóng chống nghe lén từ xa."
+      },
+      {
+        id: "c5_37", chapter: "c5", chapterName: "Chương 5",
+        q: "Giao thức nào không nên dùng cho WLAN vì đã bị phá vỡ hoàn toàn?",
+        options: ["WPA2", "WEP", "WPA3", "802.1X"],
+        answer: 1,
+        explain: "WEP đã bị phá vỡ hoàn toàn, tuyệt đối không được sử dụng.",
+        tip: "Mẹo nhớ: Bị phá vỡ hoàn toàn = WEP."
+      },
+      {
+        id: "c5_38", chapter: "c5", chapterName: "Chương 5",
+        q: "IEEE 802.11n cải thiện tốc độ nhờ công nghệ?",
+        options: ["FHSS", "MIMO (Multiple Input Multiple Output)", "DSSS", "OFDM"],
+        answer: 1,
+        explain: "802.11n dùng nhiều anten thu phát MIMO để tăng băng thông vượt trội.",
+        tip: "Mẹo nhớ: 802.11n gắn với công nghệ anten MIMO."
+      },
+      {
+        id: "c5_39", chapter: "c5", chapterName: "Chương 5",
+        q: "Khi client gửi RTS, AP phản hồi CTS để làm gì?",
+        options: ["Thông báo cho mọi trạm khác không được gửi trong thời gian dự kiến", "Mã hóa dữ liệu", "Xác thực client", "Cấp địa chỉ IP"],
+        answer: 0,
+        explain: "CTS thông báo yêu cầu tất cả trạm khác giữ im lặng trong khoảng thời gian định trước.",
+        tip: "Mẹo nhớ: CTS phản hồi = Báo các trạm khác không được gửi."
+      },
+      {
+        id: "c5_40", chapter: "c5", chapterName: "Chương 5",
+        q: "WIDS (Wireless Intrusion Detection System) khác WIPS ở điểm nào?",
+        options: ["WIDS phát hiện, WIPS chủ động ngăn chặn", "WIPS chỉ phát hiện", "Không khác", "WIDS dùng phần cứng"],
+        answer: 0,
+        explain: "WIDS chỉ phát hiện và cảnh báo; WIPS có cơ chế can thiệp ngăn chặn tích cực.",
+        tip: "Mẹo nhớ: WIDS phát hiện; WIPS chủ động ngăn chặn."
+      },
+
+      // CHƯƠNG 6
+      {
+        id: "c6_1", chapter: "c6", chapterName: "Chương 6",
+        q: "Tiêu chuẩn nào cung cấp bộ quy tắc thực hành (Code of Practice) với 11 lĩnh vực kiểm soát an toàn thông tin?",
+        options: ["ISO/IEC 27001", "ISO/IEC 27002", "ISO/IEC 15408", "ISO/IEC 13335"],
+        answer: 1,
+        explain: "ISO/IEC 27002 là tiêu chuẩn hướng dẫn thực hành (Code of Practice).",
+        tip: "Mẹo nhớ: 27001 là chuẩn chứng nhận; 27002 là hướng dẫn thực hành."
+      },
+      {
+        id: "c6_2", chapter: "c6", chapterName: "Chương 6",
+        q: "ISO/IEC 27001:2005 quy định về vấn đề gì?",
+        options: ["Các biện pháp kiểm soát cụ thể", "Yêu cầu thiết lập Hệ thống Quản lý An toàn Thông tin (ISMS)", "Đánh giá bảo mật sản phẩm", "Quản lý rủi ro mạng"],
+        answer: 1,
+        explain: "ISO/IEC 27001 đưa ra các yêu cầu bắt buộc để xây dựng và duy trì ISMS.",
+        tip: "Mẹo nhớ: ISO 27001 = Yêu cầu thiết lập ISMS."
+      },
+      {
+        id: "c6_3", chapter: "c6", chapterName: "Chương 6",
+        q: "Điểm khác biệt chính giữa ISO/IEC 27001 và ISO/IEC 27002 là gì?",
+        options: ["27002 dùng để chứng nhận, 27001 chỉ hướng dẫn", "27001 có thể chứng nhận, 27002 chỉ hướng dẫn thực hành", "27001 tập trung vào mạng, 27002 vào phần mềm", "Không có khác biệt"],
+        answer: 1,
+        explain: "27001 dùng để đánh giá cấp chứng nhận; 27002 chỉ là tài liệu hướng dẫn chi tiết.",
+        tip: "Mẹo nhớ: 27001 cấp chứng nhận; 27002 hướng dẫn thực hành."
+      },
+      {
+        id: "c6_4", chapter: "c6", chapterName: "Chương 6",
+        q: "ISO/IEC 15408 còn được gọi là?",
+        options: ["PCI DSS", "Common Criteria", "FIPS 140-2", "ISMS"],
+        answer: 1,
+        explain: "ISO/IEC 15408 có tên gọi phổ biến quốc tế là Common Criteria (CC).",
+        tip: "Mẹo nhớ: ISO 15408 = Common Criteria."
+      },
+      {
+        id: "c6_5", chapter: "c6", chapterName: "Chương 6",
+        q: "Mục đích chính của ISO/IEC 15408 (Common Criteria) là gì?",
+        options: ["Quản lý rủi ro", "Đánh giá và chứng nhận mức bảo đảm an ninh của sản phẩm CNTT", "Bảo vệ dữ liệu thẻ thanh toán", "Quy định về chữ ký số"],
+        answer: 1,
+        explain: "Được dùng để kiểm thử độc lập và chứng nhận mức độ an toàn của sản phẩm phần mềm/phần cứng.",
+        tip: "Mẹo nhớ: Common Criteria = Đánh giá và chứng nhận sản phẩm CNTT."
+      },
+      {
+        id: "c6_6", chapter: "c6", chapterName: "Chương 6",
+        q: "Trong Common Criteria, tài liệu mô tả mục tiêu bảo mật cụ thể của sản phẩm được gọi là?",
+        options: ["Protection Profile (PP)", "Security Target (ST)", "ISMS Scope", "Control Objective"],
+        answer: 1,
+        explain: "Security Target (ST) do nhà sản xuất lập để mô tả mục tiêu an ninh cho sản phẩm cụ thể.",
+        tip: "Mẹo nhớ: Mục tiêu bảo mật sản phẩm cụ thể = Security Target (ST)."
+      },
+      {
+        id: "c6_7", chapter: "c6", chapterName: "Chương 6",
+        q: "ISO/IEC 13335 tập trung vào lĩnh vực nào?",
+        options: ["Mã hóa mô-đun", "Quản lý rủi ro và chiến lược bảo mật tổng thể", "Chứng nhận sản phẩm", "Bảo mật thẻ thanh toán"],
+        answer: 1,
+        explain: "ISO/IEC 13335 hướng dẫn quản lý an toàn mạng và phương pháp luận quản lý rủi ro.",
+        tip: "Mẹo nhớ: ISO 13335 = Quản lý rủi ro & chiến lược bảo mật."
+      },
+      {
+        id: "c6_8", chapter: "c6", chapterName: "Chương 6",
+        q: "Tiêu chuẩn nào liên quan mật thiết đến quản lý rủi ro và thường được so sánh với ISO/IEC 27005?",
+        options: ["ISO/IEC 27002", "ISO/IEC 27001", "ISO/IEC 13335", "PCI DSS"],
+        answer: 2,
+        explain: "ISO 13335 hướng dẫn đánh giá rủi ro, tương đồng với chuẩn ISO 27005.",
+        tip: "Mẹo nhớ: Tương đồng về quản lý rủi ro = ISO 13335."
+      },
+      {
+        id: "c6_9", chapter: "c6", chapterName: "Chương 6",
+        q: "PCI DSS là tiêu chuẩn bảo mật dành cho ai?",
+        options: ["Mọi tổ chức có hệ thống CNTT", "Các tổ chức lưu trữ, xử lý, truyền dữ liệu thẻ thanh toán", "Cơ quan chính phủ Hoa Kỳ", "Các nhà cung cấp chứng thực số"],
+        answer: 1,
+        explain: "PCI DSS áp dụng cho mọi đơn vị có xử lý, lưu trữ hoặc truyền dữ liệu thẻ thanh toán.",
+        tip: "Mẹo nhớ: PCI DSS = Dành riêng cho dữ liệu thẻ thanh toán."
+      },
+      {
+        id: "c6_10", chapter: "c6", chapterName: "Chương 6",
+        q: "PCI DSS được phát triển bởi?",
+        options: ["ISO", "Hội đồng Tiêu chuẩn Bảo mật PCI (PCI SSC)", "NIST", "Bộ Thông tin VN"],
+        answer: 1,
+        explain: "PCI SSC thành lập bởi 5 hãng thẻ lớn: Visa, MasterCard, Amex, Discover, JCB.",
+        tip: "Mẹo nhớ: Hội đồng Tiêu chuẩn Bảo mật PCI (PCI SSC)."
+      },
+      {
+        id: "c6_11", chapter: "c6", chapterName: "Chương 6",
+        q: "FIPS 140-2 là tiêu chuẩn của quốc gia nào?",
+        options: ["Việt Nam", "Hoa Kỳ (do NIST ban hành)", "Liên minh châu Âu", "Nhật Bản"],
+        answer: 1,
+        explain: "FIPS là tiêu chuẩn xử lý thông tin liên bang do Viện NIST Hoa Kỳ ban hành.",
+        tip: "Mẹo nhớ: FIPS = Hoa Kỳ (NIST)."
+      },
+      {
+        id: "c6_12", chapter: "c6", chapterName: "Chương 6",
+        q: "FIPS 140-2 quy định về yêu cầu bảo mật cho loại sản phẩm nào?",
+        options: ["Tường lửa", "Mô-đun mật mã (cryptographic modules)", "Hệ điều hành", "Cơ sở dữ liệu"],
+        answer: 1,
+        explain: "Quy định bảo mật cho các mô-đun mật mã phần cứng và phần mềm (HSM, Token...).",
+        tip: "Mẹo nhớ: FIPS 140-2 = Tiêu chuẩn cho Mô-đun mật mã."
+      },
+      {
+        id: "c6_13", chapter: "c6", chapterName: "Chương 6",
+        q: "Đối tượng bắt buộc áp dụng FIPS 140-2 là?",
+        options: ["Doanh nghiệp tư nhân toàn cầu", "Cơ quan chính phủ Hoa Kỳ và tổ chức làm việc với họ", "Tất cả ngân hàng Việt Nam", "Các trang thương mại điện tử"],
+        answer: 1,
+        explain: "Bắt buộc với các cơ quan chính phủ liên bang Hoa Kỳ và nhà cung cấp cho họ.",
+        tip: "Mẹo nhớ: Bắt buộc cho chính phủ Mỹ và đối tác của họ."
+      },
+      {
+        id: "c6_14", chapter: "c6", chapterName: "Chương 6",
+        q: "Luật An toàn thông tin mạng Việt Nam có số hiệu và năm ban hành?",
+        options: ["86/2015/QH13, ban hành 19/11/2015", "86/2015/QH13, ban hành 01/7/2016", "86/2016/QH14, ban hành 19/11/2016", "86/2015/QH13, ban hành 01/7/2015"],
+        answer: 0,
+        explain: "Luật số 86/2015/QH13 được Quốc hội khóa 13 thông qua ngày 19/11/2015.",
+        tip: "Mẹo nhớ: Luật số 86/2015/QH13, ban hành 19/11/2015."
+      },
+      {
+        id: "c6_15", chapter: "c6", chapterName: "Chương 6",
+        q: "Luật An toàn thông tin mạng Việt Nam áp dụng cho những đối tượng nào?",
+        options: ["Chỉ cơ quan nhà nước", "Cơ quan nhà nước, tổ chức, doanh nghiệp, cá nhân tại VN và tổ chức nước ngoài có liên quan", "Chỉ doanh nghiệp kinh doanh dịch vụ CNTT", "Chỉ cá nhân sử dụng Internet"],
+        answer: 1,
+        explain: "Phạm vi điều chỉnh áp dụng rộng rãi cho mọi cơ quan, tổ chức, cá nhân liên quan tại VN.",
+        tip: "Mẹo nhớ: Áp dụng cho mọi cơ quan, tổ chức, cá nhân có liên quan."
+      },
+      {
+        id: "c6_16", chapter: "c6", chapterName: "Chương 6",
+        q: "Theo Luật ATTT VN, hệ thống thông tin được phân thành mấy cấp độ dựa trên mức độ ảnh hưởng khi bị sự cố?",
+        options: ["3 cấp", "5 cấp (1 đến 5)", "4 cấp", "7 cấp"],
+        answer: 1,
+        explain: "Phân cấp từ Cấp độ 1 (thấp nhất) đến Cấp độ 5 (đặc biệt quan trọng quốc gia).",
+        tip: "Mẹo nhớ: Hệ thống thông tin Việt Nam chia thành 5 cấp độ."
+      },
+      {
+        id: "c6_18", chapter: "c6", chapterName: "Chương 6",
+        q: "Trong PCI DSS, yêu cầu bảo vệ dữ liệu chủ thể bằng mã hóa mạnh nằm trong nhóm nào?",
+        options: ["Xây dựng hệ thống bảo mật mạng", "Bảo vệ dữ liệu chủ thể", "Theo dõi và kiểm tra mạng", "Duy trì chính sách bảo mật"],
+        answer: 1,
+        explain: "Nằm trong nhóm mục tiêu: Bảo vệ dữ liệu chủ thẻ (Protect Cardholder Data).",
+        tip: "Mẹo nhớ: Mã hóa thẻ = Bảo vệ dữ liệu chủ thể."
+      },
+      {
+        id: "c6_19", chapter: "c6", chapterName: "Chương 6",
+        q: "Tiêu chuẩn nào cung cấp hướng dẫn quản lý rủi ro và tính liên tục kinh doanh?",
+        options: ["PCI DSS", "ISO/IEC 27001 (và 27002 cũng có phần BCM)", "FIPS 140-2", "Common Criteria"],
+        answer: 1,
+        explain: "ISO 27001 và 27002 đều có quy định bắt buộc về Quản lý tính liên tục kinh doanh (BCM).",
+        tip: "Mẹo nhớ: Liên tục kinh doanh (BCM) = ISO 27001 / 27002."
+      },
+      {
+        id: "c6_20", chapter: "c6", chapterName: "Chương 6",
+        q: "Bộ phận nào chịu trách nhiệm quản lý nhà nước về an toàn thông tin mạng theo Luật VN?",
+        options: ["Chỉ Bộ Công an", "Bộ TT&TT, Bộ Công an, Bộ Quốc phòng và các bộ ngành liên quan", "Chính phủ", "Ngân hàng Nhà nước"],
+        answer: 1,
+        explain: "Bộ TT&TT là cơ quan chủ trì, phối hợp với Bộ Công an và Bộ Quốc phòng.",
+        tip: "Mẹo nhớ: Bộ ba: Bộ TT&TT + Bộ Công an + Bộ Quốc phòng."
+      },
+      {
+        id: "c6_21", chapter: "c6", chapterName: "Chương 6",
+        q: "Một tổ chức muốn chứng minh mình tuân thủ ISMS theo tiêu chuẩn quốc tế nên đăng ký chứng nhận theo?",
+        options: ["ISO/IEC 27002", "ISO/IEC 27001", "ISO/IEC 15408", "PCI DSS"],
+        answer: 1,
+        explain: "Chỉ có ISO/IEC 27001 là tiêu chuẩn cấp chứng chỉ cho hệ thống ISMS.",
+        tip: "Mẹo nhớ: Chứng chỉ ISMS quốc tế = ISO/IEC 27001."
+      },
+      {
+        id: "c6_22", chapter: "c6", chapterName: "Chương 6",
+        q: "Common Criteria yêu cầu tài liệu nào mô tả các yêu cầu bảo mật chuẩn cho một loại sản phẩm (ví dụ tường lửa)?",
+        options: ["Security Target (ST)", "Protection Profile (PP)", "ISMS Policy", "Control Matrix"],
+        answer: 1,
+        explain: "Protection Profile (PP) chuẩn hóa bộ yêu cầu an ninh cho một dòng sản phẩm.",
+        tip: "Mẹo nhớ: Yêu cầu chuẩn cho một DÒNG sản phẩm = Protection Profile (PP)."
+      },
+      {
+        id: "c6_23", chapter: "c6", chapterName: "Chương 6",
+        q: "Luật An toàn thông tin mạng Việt Nam quy định về bảo vệ thông tin cá nhân, bao gồm?",
+        options: ["Không cần xin phép khi thu thập", "Phải xin phép và thông báo khi xử lý dữ liệu cá nhân", "Tự do chia sẻ dữ liệu", "Chỉ áp dụng với tổ chức nhà nước"],
+        answer: 1,
+        explain: "Bắt buộc phải có sự đồng ý của chủ thể và nêu rõ mục đích khi xử lý dữ liệu cá nhân.",
+        tip: "Mẹo nhớ: Dữ liệu cá nhân = Phải xin phép và thông báo rõ ràng."
+      },
+      {
+        id: "c6_24", chapter: "c6", chapterName: "Chương 6",
+        q: "FIPS 140-2 yêu cầu các mô-đun mật mã phải có khả năng?",
+        options: ["Kết nối Internet", "Chống giả mạo vật lý và tự kiểm tra khi khởi động", "Mã hóa với khóa 512 bit", "Lưu log không giới hạn"],
+        answer: 1,
+        explain: "Chống cạy mở can thiệp vật lý và tự kiểm tra tính toàn vẹn khi cấp nguồn khởi động.",
+        tip: "Mẹo nhớ: FIPS 140-2 = Chống giả mạo vật lý & Tự test khi khởi động."
+      },
+      {
+        id: "c6_25", chapter: "c6", chapterName: "Chương 6",
+        q: "Một ngân hàng Việt Nam xử lý dữ liệu thẻ tín dụng Visa phải tuân thủ?",
+        options: ["Chỉ Luật VN", "PCI DSS", "FIPS 140-2", "ISO/IEC 15408"],
+        answer: 1,
+        explain: "Mọi đơn vị xử lý thẻ Visa bắt buộc phải tuân thủ chuẩn PCI DSS.",
+        tip: "Mẹo nhớ: Xử lý thẻ tín dụng = Bắt buộc tuân thủ PCI DSS."
+      },
+      {
+        id: "c6_26", chapter: "c6", chapterName: "Chương 6",
+        q: "Tiêu chuẩn nào có 39 mục kiểm soát (control objectives) và 133 biện pháp kiểm soát?",
+        options: ["ISO/IEC 27002:2005", "ISO/IEC 27001:2005", "PCI DSS v3.2", "FIPS 140-2"],
+        answer: 0,
+        explain: "ISO/IEC 27002:2005 bao gồm 39 mục tiêu và 133 biện pháp kiểm soát an toàn.",
+        tip: "Mẹo nhớ: 39 mục tiêu, 133 biện pháp = ISO/IEC 27002:2005."
+      },
+      {
+        id: "c6_27", chapter: "c6", chapterName: "Chương 6",
+        q: "Quy trình đánh giá Common Criteria bao gồm bước nào sau đây?",
+        options: ["Đánh giá rủi ro", "Đánh giá thiết kế, kiểm thử, phân tích mã nguồn", "Xác thực người dùng", "Quản lý sự cố"],
+        answer: 1,
+        explain: "Đánh giá chi tiết tài liệu thiết kế, phân tích mã nguồn và kiểm thử sản phẩm.",
+        tip: "Mẹo nhớ: Common Criteria = Đánh giá thiết kế, kiểm thử mã nguồn."
+      },
+      {
+        id: "c6_29", chapter: "c6", chapterName: "Chương 6",
+        q: "Luật An toàn thông tin mạng VN quy định về chứng thực chữ ký số, tổ chức cung cấp dịch vụ này phải?",
+        options: ["Tự công bố", "Được cấp phép và giám sát bởi cơ quan quản lý", "Miễn kiểm tra", "Chỉ cần đăng ký kinh doanh"],
+        answer: 1,
+        explain: "Tổ chức CA là ngành nghề có điều kiện, phải được Bộ TT&TT thẩm định cấp phép.",
+        tip: "Mẹo nhớ: Dịch vụ chữ ký số = Bắt buộc được cấp phép và chịu giám sát."
+      },
+      {
+        id: "c6_30", chapter: "c6", chapterName: "Chương 6",
+        q: "Khi áp dụng ISO/IEC 27001, bước đầu tiên để xây dựng ISMS là?",
+        options: ["Chọn biện pháp kiểm soát", "Xác định phạm vi ISMS (scope)", "Đánh giá nội bộ", "Ghi chép tài liệu"],
+        answer: 1,
+        explain: "Xác định ranh giới và phạm vi (scope) của hệ thống cần bảo vệ trước tiên.",
+        tip: "Mẹo nhớ: Bắt đầu làm ISMS = Phải xác định phạm vi (Scope)."
+      },
+      {
+        id: "c6_32", chapter: "c6", chapterName: "Chương 6",
+        q: "Các tổ chức cung cấp dịch vụ chứng thực chữ ký số công cộng tại Việt Nam phải tuân thủ?",
+        options: ["ISO 27001", "Luật An toàn thông tin mạng và các nghị định hướng dẫn", "PCI DSS", "Common Criteria"],
+        answer: 1,
+        explain: "Chịu sự quản lý và điều chỉnh trực tiếp của Luật ATTT mạng Việt Nam.",
+        tip: "Mẹo nhớ: Dịch vụ chữ ký số tại VN = Tuân thủ Luật ATTT mạng VN."
+      },
+      {
+        id: "c6_33", chapter: "c6", chapterName: "Chương 6",
+        q: "Một sản phẩm tường lửa muốn được bán cho chính phủ Mỹ thì cần chứng nhận?",
+        options: ["ISO/IEC 27001", "Common Criteria (ISO/IEC 15408)", "PCI DSS", "Luật VN"],
+        answer: 1,
+        explain: "Chính phủ Mỹ yêu cầu các sản phẩm an ninh CNTT phải đạt chứng nhận Common Criteria.",
+        tip: "Mẹo nhớ: Bán thiết bị an ninh cho chính phủ Mỹ = Chứng nhận Common Criteria."
+      },
+      {
+        id: "c6_34", chapter: "c6", chapterName: "Chương 6",
+        q: "Yêu cầu duy trì tính liên tục của hoạt động kinh doanh (Business Continuity) có trong tiêu chuẩn nào?",
+        options: ["Chỉ có ISO 27002", "Chỉ có PCI DSS", "Cả ISO 27001 và 27002", "FIPS 140-2"],
+        answer: 2,
+        explain: "Tính liên tục kinh doanh (BCM) có trong cả tiêu chuẩn 27001 và hướng dẫn 27002.",
+        tip: "Mẹo nhớ: Liên tục kinh doanh (BCM) = Cả ISO 27001 và ISO 27002."
+      },
+      {
+        id: "c6_35", chapter: "c6", chapterName: "Chương 6",
+        q: "Luật An toàn thông tin mạng Việt Nam có hiệu lực từ ngày?",
+        options: ["19/11/2015", "01/7/2016", "01/1/2016", "01/7/2015"],
+        answer: 1,
+        explain: "Luật số 86/2015/QH13 chính thức có hiệu lực thi hành từ ngày 01/7/2016.",
+        tip: "Mẹo nhớ: Có hiệu lực từ 01/7/2016."
+      },
+
+      // PHẦN NHẬN ĐỊNH ĐÚNG / SAI
+      {
+        id: "rev_1", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["Dữ liệu đang truyền trên mạng gọi là Data in Transit.", "Keylogger chỉ ghi lại các phím nhấn, không gửi qua email.", "Tường lửa lọc gói tin hoạt động ở tầng mạng OSI.", "WEP sử dụng mã hóa AES nên rất an toàn."],
+        answer: 0,
+        explain: "Dữ liệu đang truyền chính là Data in Transit. (Keylogger có gửi email; WEP dùng RC4).",
+        tip: "Mẹo nhớ: Đang truyền = Data in Transit."
+      },
+      {
+        id: "rev_2", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là KHÔNG ĐÚNG?",
+        options: ["ARP spoofing là kỹ thuật thay đổi địa chỉ MAC đích của một IP.", "Trojan không tự nhân bản nhưng thường mở backdoor.", "IPS thường được triển khai ở chế độ passive.", "ISO/IEC 27001 có thể được chứng nhận."],
+        answer: 2,
+        explain: "IPS phải triển khai ở chế độ INLINE để có thể chủ động ngăn chặn gói tin. Chế độ passive là của IDS.",
+        tip: "Mẹo nhớ: IPS là Inline, không phải Passive."
+      },
+      {
+        id: "rev_3", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["Tấn công Man-in-the-middle cho phép đứng giữa và sửa dữ liệu.", "Worm là chương trình độc lập, không cần vật chủ.", "Vùng DMZ dùng để đặt máy chủ công cộng cách ly mạng nội bộ.", "FIPS 140-2 là tiêu chuẩn của Việt Nam."],
+        answer: 0,
+        explain: "Man-in-the-middle cho phép kẻ tấn công chặn đứng ở giữa và sửa đổi nội dung trao đổi.",
+        tip: "Mẹo nhớ: MITM = Đứng giữa sửa dữ liệu."
+      },
+      {
+        id: "rev_4", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là KHÔNG ĐÚNG?",
+        options: ["Buffer overflow xảy ra khi ghi nhiều dữ liệu hơn kích thước bộ đệm.", "RAT biến máy nạn nhân thành server để hacker điều khiển từ xa.", "Circuit-Level Gateway kiểm tra nội dung dữ liệu.", "Common Criteria còn được gọi là ISO/IEC 15408."],
+        answer: 2,
+        explain: "Circuit-Level Gateway chỉ kiểm tra bắt tay TCP Layer 4, KHÔNG BAO GIỜ kiểm tra nội dung dữ liệu.",
+        tip: "Mẹo nhớ: Circuit-Level Gateway không kiểm tra nội dung."
+      },
+      {
+        id: "rev_5", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["Tấn công DoS nhằm đánh cắp dữ liệu bí mật.", "ILOVEYOU lây lan qua file đính kèm email.", "Stateful Inspection Firewall chỉ kiểm tra từng gói riêng lẻ.", "PCI DSS áp dụng cho mọi tổ chức, không liên quan đến thẻ thanh toán."],
+        answer: 1,
+        explain: "ILOVEYOU lây lan mạnh mẽ qua tệp đính kèm thư điện tử.",
+        tip: "Mẹo nhớ: ILOVEYOU lây qua đính kèm email."
+      },
+      {
+        id: "rev_6", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là KHÔNG ĐÚNG?",
+        options: ["Social engineering lợi dụng kỹ năng xã hội để lấy cắp thông tin.", "Polymorphic Virus thay đổi mã mỗi lần lây nhiễm.", "Bastion host là máy chủ được bảo vệ kỹ trong screened host.", "WPA2 sử dụng TKIP làm giao thức mã hóa chính."],
+        answer: 3,
+        explain: "WPA2 sử dụng giao thức chính là AES-CCMP; TKIP là của WPA cũ.",
+        tip: "Mẹo nhớ: Giao thức cốt lõi của WPA2 là AES-CCMP."
+      },
+      {
+        id: "rev_7", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["Tính không thể chối bỏ (Non-repudiation) thường dùng chữ ký số.", "FTP Trojan mở cổng 80.", "Nguyên tắc tối thiểu hóa quyền truy cập cho phép tất cả cổng.", "Snort và Suricata là tường lửa phần cứng."],
+        answer: 0,
+        explain: "Chữ ký số cung cấp bằng chứng xác thực nguồn gốc giúp chống chối bỏ.",
+        tip: "Mẹo nhớ: Non-repudiation = Chữ ký số."
+      },
+      {
+        id: "rev_9", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["Cryptanalysis là việc tìm thông tin từ dữ liệu mã hóa mà không cần khóa.", "Stealth Virus ẩn mình trước chương trình diệt virus.", "Application-level firewall có thể kiểm tra nội dung HTTP.", "Luật An toàn thông tin mạng VN có hiệu lực từ 01/7/2016."],
+        answer: 0,
+        explain: "Cryptanalysis (Thám mã) là hành vi dùng toán học và giải thuật để phá mã không cần khóa.",
+        tip: "Mẹo nhớ: Cryptanalysis = Phá mã không cần khóa."
+      },
+      {
+        id: "rev_10", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là KHÔNG ĐÚNG?",
+        options: ["Dictionary attack dễ thành công với mật khẩu phức tạp.", "Back Orifice mở cổng 31337.", "PfSense là phần mềm tường lửa mã nguồn mở.", "WPA3 bắt buộc sử dụng PMF."],
+        answer: 0,
+        explain: "Dictionary attack chỉ thành công với mật khẩu đơn giản, nó bất lực trước mật khẩu phức tạp.",
+        tip: "Mẹo nhớ: Mật khẩu phức tạp làm thất bại Dictionary attack."
+      },
+      {
+        id: "rev_11", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["TCP hijacking cho phép chiếm quyền kết nối TCP.", "Virus cần gắn vào file chủ để lây lan.", "NAT là chức năng duy nhất của tường lửa.", "Heuristic scanning phát hiện mã độc dựa trên chữ ký."],
+        answer: 0,
+        explain: "TCP hijacking cho phép kẻ tấn công chiếm quyền điều khiển một phiên TCP đang mở.",
+        tip: "Mẹo nhớ: TCP hijacking = Chiếm quyền kết nối TCP."
+      },
+      {
+        id: "rev_12", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là KHÔNG ĐÚNG?",
+        options: ["Ping of Death gửi gói ICMP vượt quá kích thước cho phép.", "Keylogger có thể ghi lại phím nhấn và gửi qua email.", "Screened host có router lọc gói kết hợp với bastion host.", "Hệ thống thông tin phân cấp độ 1 là mức cao nhất theo Luật VN."],
+        answer: 3,
+        explain: "Theo Luật VN, Cấp độ 1 là mức thấp nhất; Cấp độ 5 mới là mức cao nhất.",
+        tip: "Mẹo nhớ: Cấp 1 là thấp nhất, Cấp 5 mới là cao nhất."
+      },
+      {
+        id: "rev_13", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["Hacker mũ đen xâm nhập trái phép để phá hoại.", "Cavity Virus giữ nguyên kích thước file khi lây.", "IDS có thể tự động ngăn chặn tấn công.", "WPA2-PSK không thể bị tấn công brute-force."],
+        answer: 0,
+        explain: "Hacker mũ đen là tội phạm mạng xâm nhập trái phép để phá hoại hoặc trục lợi.",
+        tip: "Mẹo nhớ: Mũ đen = Xâm nhập trái phép phá hoại."
+      },
+      {
+        id: "rev_14", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là KHÔNG ĐÚNG?",
+        options: ["Phân tích mật mã (cryptanalysis) dùng toán học để phá mã.", "Logic bomb kích hoạt theo điều kiện thời gian hoặc logic.", "Tường lửa phần cứng Cisco ASA là sản phẩm phổ biến.", "FIPS 140-2 quy định về tường lửa, không phải mật mã."],
+        answer: 3,
+        explain: "FIPS 140-2 quy định về các Mô-đun mật mã, KHÔNG PHẢI quy định về tường lửa.",
+        tip: "Mẹo nhớ: FIPS 140-2 là tiêu chuẩn cho Mô-đun mật mã."
+      },
+      {
+        id: "rev_15", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["Lệnh netstat -ano hiển thị PID của tiến trình.", "Trojan chiếm quyền leo thang thường gắn vào file nhạc.", "Packet-filter firewall kiểm tra nội dung payload.", "ISO/IEC 27002 là tiêu chuẩn có thể chứng nhận."],
+        answer: 0,
+        explain: "netstat -ano có tham số -o dùng để hiển thị cột Process ID (PID).",
+        tip: "Mẹo nhớ: netstat -ano hiển thị PID của tiến trình."
+      },
+      {
+        id: "rev_16", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là KHÔNG ĐÚNG?",
+        options: ["Smurf attack là dạng DDoS sử dụng IP spoofing.", "Zombieware biến máy nạn nhân thành zombie.", "DMZ được đặt giữa tường lửa trong và ngoài.", "WEP vẫn còn được khuyến nghị sử dụng cho mạng gia đình."],
+        answer: 3,
+        explain: "WEP đã hoàn toàn bị bẻ khóa và lỗi thời, tuyệt đối không được khuyến nghị sử dụng.",
+        tip: "Mẹo nhớ: Tuyệt đối không dùng WEP."
+      },
+      {
+        id: "rev_17", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["Tính sẵn sàng (Availability) thường được đảm bảo bằng backup.", "NetBus là keylogger nổi tiếng.", "Circuit-level gateway hoạt động ở tầng ứng dụng.", "Common Criteria không yêu cầu Security Target."],
+        answer: 0,
+        explain: "Availability luôn cần các phương án backup, dự phòng hệ thống để duy trì liên tục.",
+        tip: "Mẹo nhớ: Sẵn sàng = Backup dự phòng."
+      },
+      {
+        id: "rev_18", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là KHÔNG ĐÚNG?",
+        options: ["ARP hoạt động ở tầng liên kết dữ liệu.", "Klez virus có thể tự chạy khi preview email.", "Multi-homed firewall thường có 3 interface.", "SAE trong WPA3 dễ bị tấn công từ điển hơn PSK."],
+        answer: 3,
+        explain: "SAE trong WPA3 chống tấn công từ điển cực mạnh, an toàn hơn hẳn PSK của WPA2.",
+        tip: "Mẹo nhớ: SAE chống tấn công từ điển offline vượt trội."
+      },
+      {
+        id: "rev_19", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["Lệnh ipconfig /all hiển thị địa chỉ MAC.", "Virus đa hình giữ nguyên mã lệnh mỗi lần lây.", "Bastion host thường được đặt ngoài tường lửa.", "Forward Secrecy không được hỗ trợ trong WPA3."],
+        answer: 0,
+        explain: "ipconfig /all liệt kê đầy đủ địa chỉ MAC (Physical Address) của các card mạng.",
+        tip: "Mẹo nhớ: ipconfig /all hiển thị MAC."
+      },
+      {
+        id: "rev_20", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là KHÔNG ĐÚNG?",
+        options: ["Tracert dùng để xác định đường đi của gói tin.", "ILOVEYOU là virus lây qua boot sector.", "Application-level firewall tiêu tốn nhiều tài nguyên.", "PCI DSS bắt buộc cho tổ chức xử lý thẻ thanh toán."],
+        answer: 1,
+        explain: "ILOVEYOU là sâu máy tính (Worm) lây lan qua thư điện tử, KHÔNG PHẢI lây qua boot sector.",
+        tip: "Mẹo nhớ: ILOVEYOU lây qua email, không lây vào boot."
+      },
+      {
+        id: "rev_21", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["Wireshark là công cụ bắt và phân tích gói tin.", "Macro Virus lây nhiễm file thực thi .EXE.", "Tường lửa lọc gói tin hoạt động ở tầng giao vận.", "Cloud-based IDS/IPS khó mở rộng."],
+        answer: 0,
+        explain: "Wireshark là phần mềm bắt và mổ xẻ phân tích gói tin mạng chuyên dụng nhất.",
+        tip: "Mẹo nhớ: Wireshark = Bắt và phân tích gói tin."
+      },
+      {
+        id: "rev_22", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là KHÔNG ĐÚNG?",
+        options: ["Cain & Abel là công cụ khôi phục mật khẩu.", "Boot virus lây vào Master Boot Record.", "Vùng tin cậy (trusted zone) là mạng nội bộ.", "ISO/IEC 13335 tập trung vào đánh giá sản phẩm."],
+        answer: 3,
+        explain: "Đánh giá sản phẩm là chuẩn ISO/IEC 15408; ISO 13335 hướng dẫn quản lý rủi ro và an toàn mạng.",
+        tip: "Mẹo nhớ: Đánh giá sản phẩm là ISO 15408, không phải 13335."
+      },
+      {
+        id: "rev_24", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là KHÔNG ĐÚNG?",
+        options: ["Nmap dùng để quét cổng.", "Virus Creation Kit dùng để diệt virus.", "Nguyên tắc phòng thủ theo chiều sâu kết hợp nhiều lớp bảo mật.", "Luật An toàn thông tin mạng VN có hiệu lực từ 01/7/2016."],
+        answer: 1,
+        explain: "Virus Creation Kit là bộ công cụ tạo ra virus mới, KHÔNG PHẢI công cụ diệt virus.",
+        tip: "Mẹo nhớ: Creation Kit = Bộ công cụ tạo virus."
+      },
+      {
+        id: "rev_26", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là KHÔNG ĐÚNG?",
+        options: ["Wireshark không thể bắt gói tin trên mạng không dây.", "Shell Virus tạo lớp vỏ xung quanh chương trình chủ.", "NAT giúp tiết kiệm địa chỉ IP.", "Common Criteria sử dụng Protection Profile."],
+        answer: 0,
+        explain: "Wireshark hoàn toàn bắt được các gói tin trên mạng không dây nếu card mạng hỗ trợ Monitor Mode.",
+        tip: "Mẹo nhớ: Wireshark bắt được cả mạng dây lẫn sóng không dây."
+      },
+      {
+        id: "rev_27", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["Lệnh tracert chỉ hoạt động trên Linux.", "Intrusive Virus ghi đè một phần hoặc toàn bộ code file chủ.", "Logging của tường lửa không quan trọng.", "WPA3 không hỗ trợ Wi-Fi Enhanced Open."],
+        answer: 1,
+        explain: "Intrusive Virus ghi đè trực tiếp lên phần code của file chủ.",
+        tip: "Mẹo nhớ: Intrusive Virus = Ghi đè code file chủ."
+      },
+      {
+        id: "rev_28", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là KHÔNG ĐÚNG?",
+        options: ["Aircrack-ng dùng để tấn công WEP/WPA2-PSK.", "Stealth Virus không thể ẩn trước antivirus.", "Screened subnet còn gọi là DMZ.", "IDS chỉ phát hiện, không ngăn chặn."],
+        answer: 1,
+        explain: "Stealth Virus là virus tàng hình, chuyên ẩn mình đánh lừa các phần mềm diệt virus.",
+        tip: "Mẹo nhớ: Stealth Virus có khả năng ẩn mình qua mặt antivirus."
+      },
+      {
+        id: "rev_29", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["IDA Pro là công cụ phân tích mã độc.", "Polymorphic Virus giữ nguyên chữ ký.", "Packet-filter firewall không thể lọc theo cổng.", "MAC filtering là biện pháp chống rogue AP hiệu quả nhất."],
+        answer: 0,
+        explain: "IDA Pro là công cụ Disassembler hàng đầu để dịch ngược phân tích mã độc.",
+        tip: "Mẹo nhớ: IDA Pro = Phân tích mã độc."
+      },
+      {
+        id: "rev_30", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là KHÔNG ĐÚNG?",
+        options: ["Virus Total quét file bằng nhiều antivirus.", "Keylogger chỉ có dạng phần mềm.", "Bastion host thường được bảo vệ nghiêm ngặt.", "WPA2-PSK vẫn có thể bị brute-force."],
+        answer: 1,
+        explain: "Keylogger có cả dạng phần cứng (thiết bị gắn giữa cáp bàn phím và máy tính).",
+        tip: "Mẹo nhớ: Keylogger có cả phần cứng và phần mềm."
+      },
+      {
+        id: "rev_31", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["Heuristic scanning phát hiện virus mới dựa trên hành vi.", "Logic bomb tự nhân bản qua mạng.", "Application-level firewall nhanh hơn packet filter.", "Wi-Fi Enhanced Open yêu cầu mật khẩu phức tạp."],
+        answer: 0,
+        explain: "Heuristic quét phân tích dựa trên hành vi và cấu trúc bất thường của mã.",
+        tip: "Mẹo nhớ: Heuristic = Quét dựa trên hành vi."
+      },
+      {
+        id: "rev_32", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là KHÔNG ĐÚNG?",
+        options: ["Snort là hệ thống phát hiện xâm nhập mã nguồn mở.", "Virus thường trú chiếm vùng nhớ cố định.", "Multi-homed firewall chỉ có một cổng mạng.", "Evil Twin là AP giả mạo cùng SSID."],
+        answer: 2,
+        explain: "Multi-homed firewall là loại tường lửa có từ hai interface (cổng mạng) trở lên.",
+        tip: "Mẹo nhớ: Multi-homed = Có nhiều cổng mạng."
+      },
+      {
+        id: "rev_33", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["Rogue AP có thể phát hiện bằng WIPS.", "Virus không cần kiểm tra sự tồn tại trước khi lây.", "Tường lửa không thể lọc theo tên miền.", "Security Target (ST) do cộng đồng xây dựng."],
+        answer: 0,
+        explain: "WIPS giám sát dải tần không dây để phát hiện và ngăn chặn Rogue AP.",
+        tip: "Mẹo nhớ: Phát hiện Rogue AP bằng WIPS."
+      },
+      {
+        id: "rev_34", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["Gói tin TCP được mã hóa tự động khi truyền qua mạng.", "Trojan có thể lây nhiễm mà không cần người dùng kích hoạt.", "Tường lửa thế hệ mới (NGFW) có thể tích hợp IPS.", "WPA2-PSK sử dụng RADIUS làm cơ chế xác thực mặc định."],
+        answer: 2,
+        explain: "NGFW tích hợp nhiều giải pháp an ninh bao gồm Tường lửa, Lọc ứng dụng và IPS.",
+        tip: "Mẹo nhớ: NGFW có tích hợp IPS."
+      },
+      {
+        id: "rev_35", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là KHÔNG ĐÚNG?",
+        options: ["Lệnh netstat -ano có thể hiển thị PID nhưng không hiển thị tên chương trình.", "Virus chỉ lây nhiễm trên hệ điều hành Windows.", "Bastion host thường được đặt trong vùng mạng công cộng (DMZ).", "HIDS có thể giám sát các thay đổi registry của hệ thống."],
+        answer: 1,
+        explain: "Virus xuất hiện trên mọi hệ điều hành (Windows, Linux, macOS, Android...).",
+        tip: "Mẹo nhớ: Mọi hệ điều hành đều có thể bị virus."
+      },
+      {
+        id: "rev_36", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["Mã hóa dữ liệu ở tầng liên kết (link layer) thay thế hoàn toàn mã hóa đầu cuối.", "Keylogger phần cứng dễ bị phát hiện hơn keylogger phần mềm.", "Circuit-level gateway thường hoạt động như một proxy trong suốt.", "Heuristic scanning có tỷ lệ dương tính giả (false positive) bằng 0."],
+        answer: 2,
+        explain: "Circuit-level gateway đóng vai trò như một proxy trung gian trong suốt quản lý mạch TCP.",
+        tip: "Mẹo nhớ: Circuit-level Gateway hoạt động như proxy trong suốt."
+      },
+      {
+        id: "rev_38", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["Non-repudiation có thể đạt được chỉ bằng mật khẩu mạnh.", "Worm không cần gắn vào vật chủ nhưng vẫn cần can thiệp của người dùng để chạy.", "PfSense chỉ chạy trên phần cứng chuyên dụng, không có bản phần mềm.", "FIPS 140-2 yêu cầu mô-đun mật mã phải có chống giả mạo vật lý từ level 1."],
+        answer: 1,
+        explain: "Sâu máy tính (Worm) hoạt động độc lập và không cần file chủ.",
+        tip: "Mẹo nhớ: Worm không cần gắn vào vật chủ."
+      },
+      {
+        id: "rev_40", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["Tấn công dictionary luôn cần truy cập vật lý vào máy nạn nhân.", "Logic bomb tự kích hoạt mà không cần điều kiện.", "NAT trên tường lửa có thể ẩn địa chỉ IP nội bộ nhưng không ngăn được tấn công từ bên ngoài.", "Common Criteria (ISO/IEC 15408) không áp dụng cho phần mềm, chỉ cho phần cứng."],
+        answer: 2,
+        explain: "NAT ẩn IP nội bộ, nhưng các cuộc tấn công nhắm vào các cổng dịch vụ mở vẫn có thể xâm nhập.",
+        tip: "Mẹo nhớ: NAT ẩn IP nội bộ nhưng không chặn được tấn công vào dịch vụ mở."
+      },
+      {
+        id: "rev_41", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là KHÔNG ĐÚNG?",
+        options: ["Lệnh tracert trên Windows sử dụng ICMP Echo Request.", "RAT (Remote Access Trojan) thường hoạt động ở chế độ client-server.", "Tường lửa lọc gói tin có thể chặn dựa trên địa chỉ MAC nguồn.", "Luật An toàn thông tin mạng Việt Nam quy định 5 cấp độ cho hệ thống thông tin."],
+        answer: 2,
+        explain: "Tường lửa lọc gói tin hoạt động ở Tầng Mạng Layer 3 (IP) và Giao vận Layer 4 (Port), KHÔNG lọc theo địa chỉ MAC (Layer 2).",
+        tip: "Mẹo nhớ: Packet filter hoạt động ở Layer 3 và 4, không lọc MAC."
+      },
+      {
+        id: "rev_42", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["Eavesdropping chỉ khả thi trên mạng có dây, không thể trên WLAN.", "Virus Cavity giữ nguyên kích thước file khi lây nhiễm.", "Packet-filter firewall hiệu quả trong việc ngăn chặn tấn công DDoS tầng ứng dụng.", "WPA2 sử dụng TKIP bắt buộc trên mọi thiết bị."],
+        answer: 1,
+        explain: "Virus Cavity chèn mã vào khoảng trống trong file nên dung lượng file không đổi.",
+        tip: "Mẹo nhớ: Virus Cavity giữ nguyên kích thước file."
+      },
+      {
+        id: "rev_44", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["Công cụ Cain & Abel có thể bắt mật khẩu Telnet và FTP.", "Macro virus chỉ lây qua tệp .exe, không lây qua tài liệu Office.", "DMZ là viết tắt của Dynamic Management Zone.", "ISO/IEC 27001 chỉ áp dụng cho các tổ chức tài chính."],
+        answer: 0,
+        explain: "Telnet và FTP gửi văn bản rõ (plaintext), Cain & Abel bắt gói và hiển thị ngay mật khẩu.",
+        tip: "Mẹo nhớ: Cain & Abel bắt mật khẩu văn bản rõ Telnet và FTP."
+      },
+      {
+        id: "rev_45", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là KHÔNG ĐÚNG?",
+        options: ["Lệnh ipconfig /displaydns hiển thị bộ nhớ đệm DNS.", "Keylogger có thể được cài đặt từ xa qua lỗ hổng trình duyệt.", "Screened host là kiến trúc chỉ dùng một tường lửa duy nhất.", "PCI DSS yêu cầu mã hóa dữ liệu thẻ khi truyền qua mạng công cộng."],
+        answer: 2,
+        explain: "Kiến trúc Screened Host gồm 2 thành phần kết hợp: một Screening Router và một Bastion Host.",
+        tip: "Mẹo nhớ: Screened Host gồm Screening Router + Bastion Host."
+      },
+      {
+        id: "rev_46", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["Social engineering không thể kết hợp với kỹ thuật phishing.", "Zombieware thuộc họ Trojan nhưng không có khả năng điều khiển từ xa.", "Tường lửa phần mềm IPCOP có thể chạy trên máy tính thông thường.", "SAE trong WPA3 dễ bị tấn công offline hơn PSK của WPA2."],
+        answer: 2,
+        explain: "IPCOP là hệ điều hành tường lửa phần mềm nguồn mở cài đặt được trên máy tính cá nhân thông thường.",
+        tip: "Mẹo nhớ: IPCOP là tường lửa phần mềm cài được trên PC."
+      },
+      {
+        id: "rev_47", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là KHÔNG ĐÚNG?",
+        options: ["Ping of Death là cuộc tấn công lớp mạng (network layer).", "ILOVEYOU là virus boot, không phải worm.", "Bastion host thường được cứng hóa (hardened) và giảm thiểu dịch vụ.", "Security Target (ST) trong Common Criteria là tài liệu mô tả mục tiêu bảo mật sản phẩm."],
+        answer: 1,
+        explain: "ILOVEYOU là sâu máy tính (Worm) lây qua mạng email, KHÔNG PHẢI virus boot.",
+        tip: "Mẹo nhớ: ILOVEYOU là Worm, không phải Virus boot."
+      },
+      {
+        id: "rev_49", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là KHÔNG ĐÚNG?",
+        options: ["Tấn công Man-in-the-middle có thể thực hiện trên mạng LAN có dây.", "Polymorphic virus thay đổi mã giải mã nhưng giữ nguyên payload.", "Firewall có thể phân loại lưu lượng dựa trên chữ ký ứng dụng (Application signature).", "Mô hình Standalone IDS phù hợp với mạng doanh nghiệp có hàng nghìn máy chủ."],
+        answer: 3,
+        explain: "Mạng hàng ngàn máy chủ bắt buộc phải dùng Distributed IDPS hoặc NIPS trung tâm, Standalone sẽ bị quá tải ngay.",
+        tip: "Mẹo nhớ: Doanh nghiệp hàng ngàn máy chủ không thể dùng Standalone IDS."
+      },
+      {
+        id: "rev_50", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["Nếu cookie được truyền dưới dạng plaintext, kẻ tấn công có thể giả mạo phiên.", "Keylogger không thể ghi lại mật khẩu từ màn hình đăng nhập Windows.", "DMZ có thể được tạo ra mà không cần tường lửa, chỉ dùng router.", "ISO/IEC 13335 không liên quan đến quản lý rủi ro."],
+        answer: 0,
+        explain: "Nếu Session Cookie truyền dạng plaintext không mã hóa qua HTTP, kẻ gian có thể đánh cắp để chiếm phiên đăng nhập.",
+        tip: "Mẹo nhớ: Cookie gửi plaintext sẽ bị cướp phiên đăng nhập."
+      },
+      {
+        id: "rev_52", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là ĐÚNG?",
+        options: ["Mã độc dạng logic bomb có thể được kích hoạt theo thời gian.", "WPA2-Enterprise sử dụng mật khẩu chung cho tất cả người dùng.", "Sử dụng VPN trên WLAN công cộng không cần thiết nếu đã dùng WPA3.", "FIPS 140-2 chỉ yêu cầu tự kiểm tra khi khởi động, không yêu cầu trong vận hành."],
+        answer: 0,
+        explain: "Logic bomb có thể cài đặt điều kiện kích hoạt theo ngày giờ cụ thể (Time bomb).",
+        tip: "Mẹo nhớ: Bom logic có thể nổ theo giờ hẹn trước."
+      },
+      {
+        id: "rev_55", chapter: "review", chapterName: "Nhận định Đúng/Sai",
+        q: "Nhận định nào sau đây là KHÔNG ĐÚNG?",
+        options: ["Smurf attack sử dụng địa chỉ broadcast để khuếch đại lưu lượng.", "Process Viewer có thể xem các tiến trình đang chạy, bao gồm cả trojan.", "Bastion host thường chạy nhiều dịch vụ để thuận tiện cho quản trị.", "WPA3 sử dụng SAE thay cho PSK."],
+        answer: 2,
+        explain: "Bastion host bắt buộc phải 'cứng hóa' (Hardening): chỉ chạy các dịch vụ thiết yếu nhất, TẮT HẾT các dịch vụ dư thừa.",
+        tip: "Mẹo nhớ: Bastion host phải tắt bớt dịch vụ, không được chạy nhiều dịch vụ."
+      }
+    ];
+
+    // Khởi tạo trạng thái
+    let userAnswers = {};
+    let bookmarks = [];
+    try {
+      userAnswers = JSON.parse(localStorage.getItem('atmmt_answers')) || {};
+      bookmarks = JSON.parse(localStorage.getItem('atmmt_bookmarks')) || [];
+    } catch(e) {
+      userAnswers = {};
+      bookmarks = [];
+    }
+
+    let currentFilter = 'all';
+    let searchQuery = '';
+    let examActive = false;
+    let examTimer = null;
+    let examQuestions = [];
+
+    // Chạy khi nạp xong DOM
+    function init() {
+      updateBadges();
+      renderQuestions();
+      updateStats();
+      applySavedTheme();
+    }
+
+    function updateBadges() {
+      document.getElementById('b-all').textContent = database.length;
+      document.getElementById('b-c1').textContent = database.filter(q => q.chapter === 'c1').length;
+      document.getElementById('b-c2').textContent = database.filter(q => q.chapter === 'c2').length;
+      document.getElementById('b-c3').textContent = database.filter(q => q.chapter === 'c3').length;
+      document.getElementById('b-c4').textContent = database.filter(q => q.chapter === 'c4').length;
+      document.getElementById('b-c5').textContent = database.filter(q => q.chapter === 'c5').length;
+      document.getElementById('b-c6').textContent = database.filter(q => q.chapter === 'c6').length;
+      document.getElementById('b-review').textContent = database.filter(q => q.chapter === 'review').length;
+      
+      const wrongCount = Object.keys(userAnswers).filter(id => {
+        const item = database.find(x => x.id === id);
+        return item && userAnswers[id] !== item.answer;
+      }).length;
+      document.getElementById('b-wrong').textContent = wrongCount;
+      document.getElementById('b-bookmark').textContent = bookmarks.length;
+    }
+
+    function renderQuestions() {
+      const container = document.getElementById('questions-list');
+      container.innerHTML = '';
+
+      let list = examActive ? examQuestions : database;
+
+      if (!examActive) {
+        if (currentFilter.startsWith('c') || currentFilter === 'review') {
+          list = list.filter(q => q.chapter === currentFilter);
+        } else if (currentFilter === 'wrong') {
+          list = list.filter(q => userAnswers[q.id] !== undefined && userAnswers[q.id] !== q.answer);
+        } else if (currentFilter === 'bookmark') {
+          list = list.filter(q => bookmarks.includes(q.id));
+        }
+
+        if (searchQuery.trim() !== '') {
+          const qLower = searchQuery.toLowerCase();
+          list = list.filter(q => q.q.toLowerCase().includes(qLower) || q.options.some(opt => opt.toLowerCase().includes(qLower)));
+        }
+      }
+
+      document.getElementById('question-count').textContent = list.length;
+
+      if (list.length === 0) {
+        container.innerHTML = '<div style="text-align:center; padding:3rem; color:var(--text-muted); background:var(--card-bg); border-radius:12px; border:1px solid var(--card-border);">Không có câu hỏi nào thỏa mãn bộ lọc hiện tại.</div>';
+        return;
+      }
+
+      list.forEach((item, index) => {
+        const isBookmarked = bookmarks.includes(item.id);
+        const answered = userAnswers[item.id] !== undefined;
+        const selectedOpt = userAnswers[item.id];
+
+        const card = document.createElement('div');
+        card.className = 'q-card';
+        card.id = 'card-' + item.id;
+
+        let optionsHtml = '';
+        const optKeys = ['A', 'B', 'C', 'D'];
+        item.options.forEach((opt, optIdx) => {
+          let btnClass = 'opt-btn';
+          if (answered) {
+            if (optIdx === item.answer) btnClass += ' correct';
+            else if (optIdx === selectedOpt) btnClass += ' wrong';
+          }
+
+          optionsHtml += `
+            <button class="${btnClass}" onclick="selectAnswer('${item.id}', ${optIdx})" ${answered ? 'disabled' : ''}>
+              <span class="opt-key">${optKeys[optIdx]}.</span>
+              <span>${opt}</span>
+            </button>
+          `;
+        });
+
+        const explainDisplay = answered ? 'block' : 'none';
+
+        card.innerHTML = `
+          <div class="q-header">
+            <div class="q-meta">
+              <span class="q-tag">${item.chapterName}</span>
+              <span style="font-size:0.85rem; color:var(--text-muted);">Câu ${index + 1}</span>
+            </div>
+            <button class="q-bookmark-btn ${isBookmarked ? 'bookmarked' : ''}" onclick="toggleBookmark('${item.id}')" title="Lưu câu hỏi">
+              ${isBookmarked ? '★' : '☆'}
+            </button>
+          </div>
+          <div class="q-title">${item.q}</div>
+          <div class="options-grid">${optionsHtml}</div>
+          <div class="explain-box" id="explain-${item.id}" style="display: ${explainDisplay};">
+            <div class="explain-title">💡 Giải thích chi tiết</div>
+            <div class="explain-text">${item.explain}</div>
+            <div class="tip-box">
+              <span>⚡</span>
+              <div>${item.tip}</div>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function selectAnswer(id, optIdx) {
+      userAnswers[id] = optIdx;
+      localStorage.setItem('atmmt_answers', JSON.stringify(userAnswers));
+
+      const item = database.find(x => x.id === id);
+      const card = document.getElementById('card-' + id);
+      if (!card) return;
+
+      const buttons = card.querySelectorAll('.opt-btn');
+      buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === item.answer) {
+          btn.classList.add('correct');
+        } else if (idx === optIdx) {
+          btn.classList.add('wrong');
+        }
+      });
+
+      const explainBox = document.getElementById('explain-' + id);
+      if (explainBox) {
+        explainBox.style.display = 'block';
+      }
+
+      updateStats();
+      updateBadges();
+    }
+
+    function toggleBookmark(id) {
+      if (bookmarks.includes(id)) {
+        bookmarks = bookmarks.filter(x => x !== id);
+      } else {
+        bookmarks.push(id);
+      }
+      localStorage.setItem('atmmt_bookmarks', JSON.stringify(bookmarks));
+      updateBadges();
+      renderQuestions();
+    }
+
+    function setFilter(filter, btn) {
+      if (examActive) {
+        if (!confirm("Bạn đang trong bài thi thử. Rời đi sẽ kết thúc bài thi, bạn có muốn thoát?")) return;
+        finishExam();
+      }
+      currentFilter = filter;
+      document.querySelectorAll('.chapter-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderQuestions();
+    }
+
+    function handleSearch(val) {
+      searchQuery = val;
+      renderQuestions();
+    }
+
+    function updateStats() {
+      const answeredKeys = Object.keys(userAnswers);
+      const totalAnswered = answeredKeys.length;
+      let correctCount = 0;
+
+      answeredKeys.forEach(id => {
+        const item = database.find(x => x.id === id);
+        if (item && userAnswers[id] === item.answer) correctCount++;
+      });
+
+      document.getElementById('stat-done').textContent = `${totalAnswered}/${database.length}`;
+      const acc = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
+      document.getElementById('stat-accuracy').textContent = `${acc}%`;
+    }
+
+    function resetProgress() {
+      if (confirm("Bạn có chắc chắn muốn xóa lịch sử để làm lại từ đầu?")) {
+        userAnswers = {};
+        localStorage.removeItem('atmmt_answers');
+        updateStats();
+        updateBadges();
+        renderQuestions();
+      }
+    }
+
+    function openTestModal() {
+      document.getElementById('examModal').style.display = 'flex';
+    }
+    function closeTestModal() {
+      document.getElementById('examModal').style.display = 'none';
+    }
+
+    function startRandom50Exam() {
+      closeTestModal();
+      examActive = true;
+
+      const shuffled = [...database].sort(() => 0.5 - Math.random());
+      examQuestions = shuffled.slice(0, 50);
+
+      document.getElementById('examBanner').style.display = 'flex';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      let timeLeft = 45 * 60;
+      const timerDisplay = document.getElementById('timerBox');
+
+      clearInterval(examTimer);
+      examTimer = setInterval(() => {
+        timeLeft--;
+        const mins = Math.floor(timeLeft / 60);
+        const secs = timeLeft % 60;
+        timerDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+        if (timeLeft <= 0) {
+          clearInterval(examTimer);
+          alert("Hết giờ làm bài!");
+          finishExam();
+        }
+      }, 1000);
+
+      renderQuestions();
+    }
+
+    function finishExam() {
+      clearInterval(examTimer);
+      examActive = false;
+      document.getElementById('examBanner').style.display = 'none';
+
+      let score = 0;
+      let done = 0;
+      examQuestions.forEach(q => {
+        if (userAnswers[q.id] !== undefined) {
+          done++;
+          if (userAnswers[q.id] === q.answer) score++;
+        }
+      });
+
+      const mark = ((score / 50) * 10).toFixed(1);
+      alert(`KẾT QUẢ BÀI THI THỬ 50 CÂU:\n- Hoàn thành: ${done}/50\n- Trả lời đúng: ${score}/50\n- Điểm số: ${mark} / 10 Điểm`);
+
+      renderQuestions();
+    }
+
+    function toggleTheme() {
+      const isLight = document.body.getAttribute('data-theme') === 'light';
+      if (isLight) {
+        document.body.removeAttribute('data-theme');
+        localStorage.setItem('atmmt_theme', 'dark');
+        document.getElementById('themeBtn').textContent = '🌙 Giao diện';
+      } else {
+        document.body.setAttribute('data-theme', 'light');
+        localStorage.setItem('atmmt_theme', 'light');
+        document.getElementById('themeBtn').textContent = '☀️ Giao diện';
+      }
+    }
+
+    function applySavedTheme() {
+      const theme = localStorage.getItem('atmmt_theme');
+      if (theme === 'light') {
+        document.body.setAttribute('data-theme', 'light');
+        document.getElementById('themeBtn').textContent = '☀️ Giao diện';
+      }
+    }
+
+    // Tự động chạy ngay khi DOM sẵn sàng
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  </script>
+</body>
+</html>
